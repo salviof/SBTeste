@@ -54,7 +54,7 @@ public abstract class GeradorGenerico {
     public void salvarEmDiretorioPadraCASO_NAO_EXISTA() {
         File arquivo = new File(getCaminhoLocalSalvarCodigo());
         if (!arquivo.exists()) {
-            salvarEmDiretorioPadraoSubstituindoAnterior();
+            UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(getCaminhoLocalSalvarCodigo(), getCodigoJava().toString());
         }
 
     }

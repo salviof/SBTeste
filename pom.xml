@@ -33,10 +33,9 @@
         </dependency>
 
         <dependency>
-            <groupId>br.org.coletivoJava</groupId>
+            <groupId>br.org.coletivoJava.fw</groupId>
             <artifactId>SBCore</artifactId>
             <version>1.0RC-SNAPSHOT</version>
-
         </dependency>
 
 

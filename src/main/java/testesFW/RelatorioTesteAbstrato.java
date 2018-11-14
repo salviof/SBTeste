@@ -8,7 +8,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ItfInfoErroSB;
+import com.super_bits.modulosSB.SBCore.modulos.tratamentoErros.ItfInfoErroSB;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ItfRelatorioTestes;
 import org.coletivojava.fw.api.objetoNativo.mensagem.MensagemProgramador;
 import testesFW.TesteJunit;
