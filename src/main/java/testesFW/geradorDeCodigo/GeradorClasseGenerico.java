@@ -4,10 +4,8 @@
  */
 package testesFW.geradorDeCodigo;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
-import org.jboss.forge.roaster.model.source.JavaSource;
 
 /**
  *

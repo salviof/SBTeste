@@ -78,7 +78,7 @@ public abstract class TesteJunit extends org.junit.Assert {
                 }
 
             } catch (Throwable t) {
-
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, t.getMessage(), t);
             }
 
         });
