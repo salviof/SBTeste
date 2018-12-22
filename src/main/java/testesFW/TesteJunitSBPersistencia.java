@@ -44,7 +44,7 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit implements Itf
     }
 
     @Override
-    public EntityManager getEmTeste() {
+    public EntityManager getEMTeste() {
         return getEM();
     }
 
