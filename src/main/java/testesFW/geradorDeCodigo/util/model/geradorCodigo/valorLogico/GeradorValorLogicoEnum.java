@@ -6,8 +6,7 @@ package testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorEnumEscopoModel;
 
 /**
@@ -16,7 +15,7 @@ import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorEnumEscopoModel;
  */
 public class GeradorValorLogicoEnum extends GeradorEnumEscopoModel {
 
-    public GeradorValorLogicoEnum(EstruturaDeEntidade entidade) {
+    public GeradorValorLogicoEnum(ItfEstruturaDeEntidade entidade) {
         super(entidade.getNomeEntidade(), "ValoresLogicos" + entidade.getNomeEntidade());
 
         System.out.println(entidade.getCamposComValidadorLogico());
@@ -24,14 +23,14 @@ public class GeradorValorLogicoEnum extends GeradorEnumEscopoModel {
 
         entidade.getCamposComValorLogico().forEach(cp
                 -> {
-            try {
-                System.out.println("ValorLogico" + cp.getNomeDeclarado());
+                    try {
+                        System.out.println("ValorLogico" + cp.getNomeDeclarado());
 
-                getCodigoJava().addEnumConstant(cp.getNomeDeclarado().toUpperCase());
-            } catch (Throwable t) {
-                SBCore.RelatarErroAoUsuario(FabErro.SOLICITAR_REPARO, "Erro adicionando enum de validacao", t);
-            }
-        });
+                        getCodigoJava().addEnumConstant(cp.getNomeDeclarado().toUpperCase());
+                    } catch (Throwable t) {
+                        SBCore.RelatarErroAoUsuario(FabErro.SOLICITAR_REPARO, "Erro adicionando enum de validacao", t);
+                    }
+                });
 
     }
 

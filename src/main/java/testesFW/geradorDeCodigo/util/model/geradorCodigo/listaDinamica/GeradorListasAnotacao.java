@@ -5,6 +5,7 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica;
 
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorAnotacaoEscopoModel;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -19,7 +20,7 @@ import org.jboss.forge.roaster.model.AnnotationElement;
  */
 public class GeradorListasAnotacao extends GeradorAnotacaoEscopoModel {
 
-    public GeradorListasAnotacao(EstruturaDeEntidade pEstrutura) {
+    public GeradorListasAnotacao(ItfEstruturaDeEntidade pEstrutura) {
         super(pEstrutura.getNomeEntidade(), "Lista" + pEstrutura.getNomeEntidade());
         GeradorListasEnum geradorEnum = new GeradorListasEnum(pEstrutura);
         geradorEnum.getCodigoJava();

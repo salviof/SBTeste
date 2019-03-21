@@ -12,6 +12,7 @@ import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.calculos.ValorLogicoCalculoGenerico;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorClasseEscopoModel;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
 
@@ -21,11 +22,11 @@ import org.jboss.forge.roaster.model.source.AnnotationSource;
  */
 public class GeradorValorLogicaClasseImplementacao extends GeradorClasseEscopoModel {
 
-    public static String gerarSubPacote(EstruturaCampo pCampo) {
+    public static String gerarSubPacote(ItfEstruturaCampoEntidade pCampo) {
         return pCampo.getEstruturaPai().getNome();
     }
 
-    public GeradorValorLogicaClasseImplementacao(EstruturaCampo pCampo) {
+    public GeradorValorLogicaClasseImplementacao(ItfEstruturaCampoEntidade pCampo) {
         super(gerarSubPacote(pCampo), "ValorLogico" + pCampo.getEstruturaPai().getNome() + UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(pCampo.getNomeDeclarado()));
         try {
             getCodigoJava().extendSuperType(ValorLogicoCalculoGenerico.class);

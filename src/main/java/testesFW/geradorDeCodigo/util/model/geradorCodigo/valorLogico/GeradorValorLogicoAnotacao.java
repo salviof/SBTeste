@@ -4,9 +4,7 @@
  */
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico;
 
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoReferenciaEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorAnotacaoEscopoModel;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -21,7 +19,7 @@ import org.jboss.forge.roaster.model.AnnotationElement;
  */
 public class GeradorValorLogicoAnotacao extends GeradorAnotacaoEscopoModel {
 
-    public GeradorValorLogicoAnotacao(EstruturaDeEntidade pEstrutura) {
+    public GeradorValorLogicoAnotacao(ItfEstruturaDeEntidade pEstrutura) {
         super(pEstrutura.getNomeEntidade(), "ValorLogico" + pEstrutura.getNomeEntidade());
         GeradorValorLogicoEnum geradorEnum = new GeradorValorLogicoEnum(pEstrutura);
         geradorEnum.getCodigoJava();

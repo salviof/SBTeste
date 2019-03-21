@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAc
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import testesFW.geradorDeCodigo.util.UtilSBDevelGeradorCodigoModel;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.modelRef.GeradorReferenciaCampos;
@@ -85,18 +86,18 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     }
 
-    public void criarAnotacaoValidacao(EstruturaDeEntidade estEstrutura) {
+    public void criarAnotacaoValidacao(ItfEstruturaDeEntidade estEstrutura) {
         UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValidadoresApi(estEstrutura);
         estEstrutura.getCamposComValidadorLogico().forEach(UtilSBDevelGeradorCodigoModel::homologarClassesDeValidacao);
 
     }
 
-    public void criarAnotacaoCalculo(EstruturaDeEntidade calculo) {
+    public void criarAnotacaoCalculo(ItfEstruturaDeEntidade calculo) {
         UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(calculo);
         calculo.getCamposComValorLogico().forEach(UtilSBDevelGeradorCodigoModel::homologarClassesDeValor);
     }
 
-    public void criarAnotacaoLista(EstruturaDeEntidade lista) {
+    public void criarAnotacaoLista(ItfEstruturaDeEntidade lista) {
         UtilSBDevelGeradorCodigoModel.gerarCodigoCampoListasApi(lista);
         lista.getCamposComListaDinamica().forEach(UtilSBDevelGeradorCodigoModel::gerarCodigoCampoListaDinamica);
     }

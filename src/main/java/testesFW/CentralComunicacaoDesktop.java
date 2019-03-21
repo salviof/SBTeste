@@ -11,7 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicaoAbstr
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfArmazenamentoComunicacao;
+
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfDestinatario;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfDisparoComunicacao;
@@ -22,6 +22,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import javax.swing.JOptionPane;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItffabricaTrasporteComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ItfArmazenamentoComunicacao;
 
 /**
  *

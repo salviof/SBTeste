@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusc
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.listas.ListaDinamicaGenerica;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorClasseEscopoModel;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
@@ -20,11 +21,11 @@ import org.jboss.forge.roaster.model.source.AnnotationSource;
  */
 public class GeradorListasClasseImplementacao extends GeradorClasseEscopoModel {
 
-    public static String gerarSubPacote(EstruturaCampo pCampo) {
+    public static String gerarSubPacote(ItfEstruturaCampoEntidade pCampo) {
         return (pCampo.getEstruturaPai().getNome());
     }
 
-    public GeradorListasClasseImplementacao(EstruturaCampo pCampo) {
+    public GeradorListasClasseImplementacao(ItfEstruturaCampoEntidade pCampo) {
         super(gerarSubPacote(pCampo), "Lista" + pCampo.getEstruturaPai().getNome() + UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(pCampo.getNomeDeclarado()));
         try {
             getCodigoJava().extendSuperType(ListaDinamicaGenerica.class);

@@ -11,6 +11,7 @@ import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.validador.ErroValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.validador.ValidacaoGenerica;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorClasseEscopoModel;
@@ -23,7 +24,7 @@ import org.jboss.forge.roaster.model.source.MethodSource;
  */
 public class GeradorValidicaoLogicaClasseImplementacao extends GeradorClasseEscopoModel {
 
-    public GeradorValidicaoLogicaClasseImplementacao(EstruturaCampo pCampo) {
+    public GeradorValidicaoLogicaClasseImplementacao(ItfEstruturaCampoEntidade pCampo) {
         super(pCampo.getEstruturaPai().getNome(), UtilSBGeradorDeCodigoBase.getNomeClasseValidacao(pCampo));
         try {
             Class classeObjeto = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(pCampo.getEstruturaPai().getNomeEntidade());

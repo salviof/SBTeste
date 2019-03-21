@@ -12,6 +12,8 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComuni
 
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica.GeradorListasAnotacao;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica.GeradorListasClasseImplementacao;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica.GeradorListasEnum;
@@ -48,7 +50,7 @@ public class UtilSBDevelGeradorCodigoModel {
 
     }
 
-    public static void gerarCodigoCampoValorLogicaApi(EstruturaDeEntidade estEstrutura) {
+    public static void gerarCodigoCampoValorLogicaApi(ItfEstruturaDeEntidade estEstrutura) {
         if (!validarAmbienteModel()) {
             return;
         }
@@ -58,7 +60,7 @@ public class UtilSBDevelGeradorCodigoModel {
         valorAnotacao.salvarEmDiretorioPadraoSubstituindoAnterior();
     }
 
-    public static void gerarCodigoCampoListasApi(EstruturaDeEntidade estEstrutura) {
+    public static void gerarCodigoCampoListasApi(ItfEstruturaDeEntidade estEstrutura) {
         if (!validarAmbienteModel()) {
             return;
         }
@@ -68,7 +70,7 @@ public class UtilSBDevelGeradorCodigoModel {
         valorAnotacao.salvarEmDiretorioPadraoSubstituindoAnterior();
     }
 
-    public static void gerarCodigoCampoValidadoresApi(EstruturaDeEntidade estEstrutura) {
+    public static void gerarCodigoCampoValidadoresApi(ItfEstruturaDeEntidade estEstrutura) {
         if (!validarAmbienteModel()) {
             return;
         }
@@ -79,7 +81,7 @@ public class UtilSBDevelGeradorCodigoModel {
         anotacaoValidacao.salvarEmDiretorioPadraoSubstituindoAnterior();
     }
 
-    public static void homologarClassesDeValor(EstruturaCampo pCampo) {
+    public static void homologarClassesDeValor(ItfEstruturaCampoEntidade pCampo) {
         if (!validarAmbienteModel()) {
             return;
         }
@@ -96,7 +98,7 @@ public class UtilSBDevelGeradorCodigoModel {
 
     }
 
-    public static void homologarClassesDeValidacao(EstruturaCampo pCampo) {
+    public static void homologarClassesDeValidacao(ItfEstruturaCampoEntidade pCampo) {
         if (!validarAmbienteModel()) {
             return;
         }
@@ -118,7 +120,7 @@ public class UtilSBDevelGeradorCodigoModel {
 
     }
 
-    public static void gerarCodigoCampoListaDinamica(EstruturaCampo estEstrutura) {
+    public static void gerarCodigoCampoListaDinamica(ItfEstruturaCampoEntidade estEstrutura) {
         if (!validarAmbienteModel()) {
             return;
         }
