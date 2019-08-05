@@ -81,7 +81,7 @@ public class UtilSBDevelGeradorCodigoModel {
         anotacaoValidacao.salvarEmDiretorioPadraoSubstituindoAnterior();
     }
 
-    public static void homologarClassesDeValor(ItfEstruturaCampoEntidade pCampo) {
+    public static void homologarClassesDeValorLogico(ItfEstruturaCampoEntidade pCampo) {
         if (!validarAmbienteModel()) {
             return;
         }
@@ -90,7 +90,7 @@ public class UtilSBDevelGeradorCodigoModel {
         if (!arquivoLogicaValidacao.exists()) {
             if (SBCore.getCentralComunicacao().aguardarRespostaComunicacao(SBCore.getCentralDeComunicacao().getFabricaTransportePadrao().getRegistro(),
                     SBCore.getCentralDeComunicacao().gerarComunicacaoSistema_UsuairoLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
-                            "Um O arquivo de Logica para obtenção de resultados do campo " + pCampo.getSlugIdentificador() + " \n não foi encontrado no pacote modelRegraDeNegocio, \n deseja criar esse arquivo?"),
+                            "Um O arquivo de logica    para o campo " + pCampo.getSlugIdentificador() + " \n não foi encontrado no pacote modelRegraDeNegocio, \n deseja criar esse arquivo?"),
                     0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
                 classeValorLogica.salvarEmDiretorioPadraCASO_NAO_EXISTA();
             }

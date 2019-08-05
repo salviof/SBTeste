@@ -94,7 +94,7 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     public void criarAnotacaoCalculo(ItfEstruturaDeEntidade calculo) {
         UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(calculo);
-        calculo.getCamposComValorLogico().forEach(UtilSBDevelGeradorCodigoModel::homologarClassesDeValor);
+        calculo.getCamposComValorLogico().forEach(UtilSBDevelGeradorCodigoModel::homologarClassesDeValorLogico);
     }
 
     public void criarAnotacaoLista(ItfEstruturaDeEntidade lista) {

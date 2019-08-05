@@ -5,6 +5,7 @@
  */
 package testesFW;
 
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicacaoDesktop;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
 
@@ -18,6 +19,7 @@ public class ConfigCoreJunitPadrao extends ConfiguradorCoreDeProjetoJarAbstrato 
     public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {
         super.defineClassesBasicas(pConfiguracao); //To change body of generated methods, choose Tools | Templates.
         pConfiguracao.setCentralComunicacao(CentralComunicacaoDesktop.class);
+
     }
 
     @Override
