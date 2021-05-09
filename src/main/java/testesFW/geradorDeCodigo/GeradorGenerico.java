@@ -18,25 +18,45 @@ import org.jboss.forge.roaster.model.source.JavaSource;
 public abstract class GeradorGenerico {
 
     private String diretorioAlternativo = null;
+    private final TIPO_PACOTE tipoPacote;
+
+    public enum TIPO_PACOTE {
+        IMPLEMENTACAO, TESTES
+    }
 
     public abstract JavaSource getCodigoJava();
 
     public GeradorGenerico(String pDiretorioAlternativo) {
         diretorioAlternativo = pDiretorioAlternativo;
+        tipoPacote = TIPO_PACOTE.IMPLEMENTACAO;
     }
 
-    public String getCaminhoLocalBaseSalvarCodigo() {
+    public GeradorGenerico(String pDiretorioAlternativo, TIPO_PACOTE pTipoPacote) {
+        diretorioAlternativo = pDiretorioAlternativo;
+        tipoPacote = pTipoPacote;
+    }
+
+    public String getCaminhoLocalBaseSalvarCodigo(TIPO_PACOTE pTipoPacote) {
         if (diretorioAlternativo != null) {
             return diretorioAlternativo;
         }
-        return SBCore.getCaminhoDesenvolvimento() + "/src/main/java/";
+        switch (pTipoPacote) {
+            case IMPLEMENTACAO:
+                return SBCore.getCaminhoDesenvolvimento() + "/src/main/java/";
+
+            case TESTES:
+                return SBCore.getCaminhoDesenvolvimento() + "/src/test/java/";
+            default:
+                throw new AssertionError(pTipoPacote.name());
+
+        }
 
     }
 
     public String getCaminhoLocalSalvarCodigo() {
 
         String caminhoClasse = getCodigoJava().getPackage();
-        return getCaminhoLocalBaseSalvarCodigo() + caminhoClasse.replace(".", "/") + "/" + getCodigoJava().getName() + ".java";
+        return getCaminhoLocalBaseSalvarCodigo(tipoPacote) + caminhoClasse.replace(".", "/") + "/" + getCodigoJava().getName() + ".java";
     }
 
     public void salvarEmDiretorioPadraoSubstituindoAnterior() {

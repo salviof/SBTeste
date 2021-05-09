@@ -16,12 +16,17 @@ public abstract class GeradorClasseGenerico extends GeradorGenerico {
     private final JavaClassSource codigoClasseJava;
 
     public GeradorClasseGenerico(String pPacote, String pNomeClasse) {
-        this(pPacote, pNomeClasse, null);
+        this(pPacote, pNomeClasse, null, TIPO_PACOTE.IMPLEMENTACAO);
 
     }
 
-    public GeradorClasseGenerico(String pPacote, String pNomeClasse, String pDiretorioAlternativo) {
-        super(pDiretorioAlternativo);
+    public GeradorClasseGenerico(String pPacote, String pNomeClasse, TIPO_PACOTE pTipo) {
+        this(pPacote, pNomeClasse, null, pTipo);
+
+    }
+
+    public GeradorClasseGenerico(String pPacote, String pNomeClasse, String pDiretorioAlternativo, TIPO_PACOTE pTipoPacote) {
+        super(pDiretorioAlternativo, pTipoPacote);
         codigoClasseJava = Roaster.create(JavaClassSource.class);
         codigoClasseJava.setPackage(pPacote);
         codigoClasseJava.setName(pNomeClasse);

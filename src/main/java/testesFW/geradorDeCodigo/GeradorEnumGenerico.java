@@ -20,11 +20,16 @@ public class GeradorEnumGenerico extends GeradorGenerico {
         return enumgerado;
     }
 
-    public GeradorEnumGenerico(String pPacote, String pNomeClasse) {
-        super(null);
+    public GeradorEnumGenerico(String pPacote, String pNomeClasse, TIPO_PACOTE pTipoPacote) {
+        super(null, pTipoPacote);
         enumgerado = Roaster.create(JavaEnumSource.class);
         enumgerado.setName(pNomeClasse);
         enumgerado.setPackage(pPacote);
+
+    }
+
+    public GeradorEnumGenerico(String pPacote, String pNomeClasse) {
+        this(pPacote, pNomeClasse, GeradorGenerico.TIPO_PACOTE.IMPLEMENTACAO);
     }
 
 }

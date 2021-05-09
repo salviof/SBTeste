@@ -20,11 +20,16 @@ import org.junit.Before;
  *
  * @author sfurbino
  */
-public abstract class TesteJunit extends org.junit.Assert {
+public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSBCore {
 
     protected abstract void configAmbienteDesevolvimento();
 
     private static boolean inicializou = false;
+
+    @Override
+    public void configContextoExecucao() {
+        configAmbienteDesevolvimento();
+    }
 
     public void preenchimentoAleatorio(ItfBeanSimples o) {
         o.getCamposInstanciados().forEach(cp -> cp.preenchimentoAleatorio());
