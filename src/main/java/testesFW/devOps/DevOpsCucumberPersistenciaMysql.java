@@ -61,7 +61,7 @@ public class DevOpsCucumberPersistenciaMysql {
         try {
             String caminhoArquivo = caminhoExecucao + "/carregaBancoCucumber.sh";
             IOUtils.copy(is, new FileOutputStream(caminhoArquivo));
-            UtilSBCoreShellBasico.executeCommand("chmod +x " + caminhoArquivo);
+            //  UtilSBCoreShellBasico.executeCommand("chmod +x " + caminhoArquivo);
             String resposta = UtilSBCoreShellBasico.executeCommand(caminhoArquivo + " " + slugRequisito);
             System.out.println(resposta);
         } catch (FileNotFoundException ex) {
