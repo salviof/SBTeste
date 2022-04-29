@@ -18,6 +18,9 @@ public class GeradorVariaveisEstaticasEtapasCucumber extends GeradorEnumCucumber
         super(pTagFuncionalidade, "Etapas" + pTagFuncionalidade);
         pEtapas.forEach(etapa -> {
             final String STR_ETAPA_NOME_VARIVAL = etapa.getNOME_SLUG_VARIAVEL();
+            if (STR_ETAPA_NOME_VARIVAL.contains(".")) {
+                throw new UnsupportedOperationException("O caracter '.'(ponto) não é permitido nas descrições nesta versão como na etapa" + STR_ETAPA_NOME_VARIVAL);
+            }
             getCodigoJava().addEnumConstant("_" + STR_ETAPA_NOME_VARIVAL);
             getCodigoJava().addField().setPublic()
                     .setType(String.class).setStatic(true).setFinal(true)

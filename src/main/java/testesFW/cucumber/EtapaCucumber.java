@@ -5,8 +5,10 @@
  */
 package testesFW.cucumber;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import gherkin.formatter.model.Step;
 import java.lang.reflect.Method;
+import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
  *
@@ -30,11 +32,16 @@ public class EtapaCucumber {
     }
 
     public EtapaCucumber(Step pStep, String pTagFuncinalidade) {
-        descritivo = pStep.getName();
-        NOME_SLUG_VARIAVEL = UtilSBCucumber.gerarNomeVariavelDaEtapa(pStep.getKeyword(), descritivo);
-        anotacaoIndicada = UtilSBCucumber.getAnotacaoByStep(pStep);
-        nomeClasse = UtilSBCucumber.gerarNomeClasseImplementacaoDaEtapa(pStep.getKeyword(), pStep.getName());
-        tagFuncionalidade = pTagFuncinalidade;
+        try {
+            descritivo = pStep.getName();
+            NOME_SLUG_VARIAVEL = UtilSBCucumber.gerarNomeVariavelDaEtapa(pStep.getKeyword(), descritivo);
+            anotacaoIndicada = UtilSBCucumber.getAnotacaoByStep(pStep);
+            nomeClasse = UtilSBCucumber.gerarNomeClasseImplementacaoDaEtapa(pStep.getKeyword(), pStep.getName());
+            tagFuncionalidade = pTagFuncinalidade;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha criando etapa cucumber", t);
+            throw new UnsupportedOperationException("Falha criando dados de etapa cucumber");
+        }
     }
 
     public String getDescritivo() {

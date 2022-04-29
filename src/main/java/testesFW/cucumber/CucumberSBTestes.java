@@ -92,13 +92,17 @@ public class CucumberSBTestes extends Cucumber {
 
             System.out.println("Foram encontradas etapas sem mapeamento entre o metodo java e o arquivo Gherkin .feature");
 
-            stepsNaoInjetadas.stream().map(step
-                    -> new EtapaCucumber(mapaEtapasDoArquivoFuncionalidadePorDescricao.get(step.getName()), tagFuncionalidadeSemArroba))
-                    .forEach(etapa -> {
-                        if (!etapasNaoEncontradas.contains(etapa)) {
-                            etapasNaoEncontradas.add(etapa);
-                        }
-                    });
+            for (Step etapa : stepsNaoInjetadas) {
+                try {
+                    EtapaCucumber etapaCucumber = new EtapaCucumber(etapa,
+                            tagFuncionalidadeSemArroba);
+                    if (!etapasNaoEncontradas.contains(etapaCucumber)) {
+                        etapasNaoEncontradas.add(etapaCucumber);
+                    }
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha processando etapas não injetada." + t.getMessage(), t);
+                }
+            }
 
             System.out.println("O sistema irá criar a classe com Strings estáticas que definem as funcionalidades" + tagFuncionalidade);
 

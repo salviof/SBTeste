@@ -5,6 +5,7 @@
  */
 package testesFW.cucumber;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringSlugs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
  *
@@ -37,8 +39,13 @@ import java.util.logging.Logger;
 public class UtilSBCucumber {
 
     public static void gerarVariaveisEstaticasDasEtapas(List<EtapaCucumber> etapas, String pTagFuncionalidade) {
-        GeradorVariaveisEstaticasEtapasCucumber gerador = new GeradorVariaveisEstaticasEtapasCucumber(etapas, pTagFuncionalidade);
-        gerador.salvarEmDiretorioPadraoSubstituindoAnterior();
+        try {
+            GeradorVariaveisEstaticasEtapasCucumber gerador = new GeradorVariaveisEstaticasEtapasCucumber(etapas, pTagFuncionalidade);
+            gerador.salvarEmDiretorioPadraoSubstituindoAnterior();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha criando Implementação " + pTagFuncionalidade, t);
+        }
+
     }
 
     public static void gerarImplementacaoPadrao(List<EtapaCucumber> etapas, String pTagFuncionalidade) {
