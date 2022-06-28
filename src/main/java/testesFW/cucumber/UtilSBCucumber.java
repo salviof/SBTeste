@@ -202,17 +202,22 @@ public class UtilSBCucumber {
     }
 
     public static List<Step> getReflexaoEtapasArquivo(CucumberSBTestes pCucucumber) {
-        FeatureRunner execucaoFuncionalidade = pCucucumber.getChildren().get(0);
-        Field campoFuncionalidade;
 
         try {
-            campoFuncionalidade = execucaoFuncionalidade.getClass().getDeclaredField("cucumberFeature");
-            campoFuncionalidade.setAccessible(true);
-            CucumberFeature cucumberFeature = (CucumberFeature) campoFuncionalidade.get(execucaoFuncionalidade);
-            Field campoStepContainer = CucumberFeature.class.getDeclaredField("currentStepContainer");
-            campoStepContainer.setAccessible(true);
-            StepContainer containerDeEtapas = (StepContainer) campoStepContainer.get(cucumberFeature);
-            return containerDeEtapas.getSteps();
+            if (!pCucucumber.getChildren().isEmpty()) {
+
+                FeatureRunner execucaoFuncionalidade = pCucucumber.getChildren().get(0);
+                Field campoFuncionalidade;
+                campoFuncionalidade = execucaoFuncionalidade.getClass().getDeclaredField("cucumberFeature");
+                campoFuncionalidade.setAccessible(true);
+                CucumberFeature cucumberFeature = (CucumberFeature) campoFuncionalidade.get(execucaoFuncionalidade);
+                Field campoStepContainer = CucumberFeature.class.getDeclaredField("currentStepContainer");
+                campoStepContainer.setAccessible(true);
+
+                StepContainer containerDeEtapas = (StepContainer) campoStepContainer.get(cucumberFeature);
+                return containerDeEtapas.getSteps();
+            }
+
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             Logger.getLogger(UtilSBCucumber.class.getName()).log(Level.SEVERE, null, ex);
         }

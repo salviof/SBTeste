@@ -21,7 +21,7 @@ public abstract class TesteIntegracaoFuncionalidadeCucumber extends TesteJunitSB
     Map<String, Object> mapaObjetosDaIntegracao = new HashMap<>();
 
     public static void renovarConexaoEntityManagerEscopoTeste() {
-
+        
         TesteJunitSBPersistencia teste = new TesteJunitSBPersistencia() {
             @Override
             protected void configAmbienteDesevolvimento() {
