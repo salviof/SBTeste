@@ -19,6 +19,7 @@ public class ConfigCoreJunitPadrao extends ConfiguradorCoreDeProjetoJarAbstrato 
     public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {
         super.defineClassesBasicas(pConfiguracao); //To change body of generated methods, choose Tools | Templates.
         pConfiguracao.setCentralComunicacao(CentralComunicacaoDesktop.class);
+        setIgnorarConfiguracaoAcoesDoSistema(true);
 
     }
 

@@ -25,7 +25,9 @@ public class ConfigCoreJunitPadraoDesenvolvedor extends ConfigCoreJunitPadrao {
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
         pConfig.setCentralComunicacao(CentralComunicacaoDesktop.class);
-        super.defineFabricasDeACao(pConfig); //chamada super do metodo (implementação classe pai)
+        super.defineFabricasDeACao(pConfig);
+        setIgnorarConfiguracaoAcoesDoSistema(false);
+        setIgnorarConfiguracaoPermissoes(false);
     }
 
 }
