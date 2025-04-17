@@ -13,7 +13,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizav
  *
  * @author desenvolvedor
  */
-public class ConfigCoreJunitPadrao extends ConfiguradorCoreDeProjetoJarAbstrato {
+public class ConfigCoreJunitPadraoDevAcoes extends ConfiguradorCoreDeProjetoJarAbstrato {
 
     @Override
     public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {

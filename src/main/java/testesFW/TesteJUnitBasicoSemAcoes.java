@@ -11,11 +11,11 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
  *
  * @author desenvolvedor
  */
-public class TesteJUnitBasicoSemPersistencia extends TesteJunit {
+public class TesteJUnitBasicoSemAcoes extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreJunitPadraoDevAcoes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
+        SBCore.configurar(new ConfigCoreJunitPadraoDevLib(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
 }

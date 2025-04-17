@@ -14,7 +14,7 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicacaoDes
  * @since 25/10/2019
  * @version 1.0
  */
-public class ConfigCoreJunitPadraoDesenvolvedor extends ConfigCoreJunitPadrao {
+public class ConfigCoreJunitPadraoDevAcaoPermissao extends ConfigCoreJunitPadraoDevAcoes {
 
     @Override
     public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {

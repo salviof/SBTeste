@@ -105,13 +105,14 @@ public class CucumberSBTestes extends Cucumber {
             }
 
             System.out.println("O sistema irá criar a classe com Strings estáticas que definem as funcionalidades" + tagFuncionalidade);
-
+            SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.NOTIFICAR, tagFuncionalidade);
             UtilSBCucumber.gerarVariaveisEstaticasDasEtapas(todasEtapas, tagFuncionalidadeSemArroba);
             etapasNaoEncontradas.stream().forEach(etapa -> {
-                if (SBCore.getCentralComunicacao().aguardarRespostaComunicacao(SBCore.getCentralDeComunicacao().getFabricaTransportePadrao().getRegistro(),
-                        SBCore.getCentralDeComunicacao().gerarComunicacaoSistema_UsuairoLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
+                if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(
+                        SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
+                        SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
                                 "A imlementação da etapa:" + etapa.getDescritivo() + " \n não foi encontrada, isso pode acontecer por uma mudança de nome, ou criação de nova etapa, você deve criar uma nova classe apenas se tiver adicionado uma nova etapa, deseja criar uma nova classe para implementar a etapa?"),
-                        0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
+                        0, FabTipoRespostaComunicacao.SIM) == FabTipoRespostaComunicacao.SIM) {
                     UtilSBCucumber.gerarClasseImplementacaoEtapa(etapa, tagFuncionalidadeSemArroba);
                 }
 

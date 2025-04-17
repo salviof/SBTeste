@@ -86,8 +86,8 @@ public class UtilSBDevelGeradorCodigoModel {
         GeradorValorLogicaClasseImplementacao classeValorLogica = new GeradorValorLogicaClasseImplementacao(pCampo);
         File arquivoLogicaValidacao = new File(classeValorLogica.getCaminhoLocalSalvarCodigo());
         if (!arquivoLogicaValidacao.exists()) {
-            if (SBCore.getCentralComunicacao().aguardarRespostaComunicacao(SBCore.getCentralDeComunicacao().getFabricaTransportePadrao().getRegistro(),
-                    SBCore.getCentralDeComunicacao().gerarComunicacaoSistema_UsuairoLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
+            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
+                    SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
                             "Um O arquivo de logica    para o campo " + pCampo.getSlugIdentificador() + " \n não foi encontrado no pacote modelRegraDeNegocio, \n deseja criar esse arquivo?"),
                     0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
                 classeValorLogica.salvarEmDiretorioPadraCASO_NAO_EXISTA();
@@ -104,8 +104,8 @@ public class UtilSBDevelGeradorCodigoModel {
         File arquivoLogicaValidacao = new File(validador.getCaminhoLocalSalvarCodigo());
 
         if (!arquivoLogicaValidacao.exists()) {
-            if (SBCore.getCentralComunicacao().aguardarRespostaComunicacao(SBCore.getCentralDeComunicacao().getFabricaTransportePadrao().getRegistro(),
-                    SBCore.getCentralDeComunicacao().gerarComunicacaoSistema_UsuairoLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
+            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
+                    SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
                             "Um O arquivo de validação para o campo " + pCampo.getSlugIdentificador() + " \n não foi encontrado no pacote modelRegraDeNegocio, \n deseja criar esse arquivo?"),
                     0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
                 validador.salvarEmDiretorioPadraCASO_NAO_EXISTA();
