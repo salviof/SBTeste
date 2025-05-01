@@ -92,6 +92,11 @@ public class UtilSBCucumber {
 
     }
 
+    public static String getDiretorioClasseEtapa(EtapaCucumber etapa, String pNomeFUncionalidade) {
+        String nomePAcote = "org.coletivoJava.fw.projetos." + SBCore.getGrupoProjeto() + ".implementacao.cucumber." + pNomeFUncionalidade.toLowerCase() + ".etapas";
+
+    }
+
     public static String getTagFincionalidade(Annotation[] pAnotacoes) {
         for (Annotation anotacao : pAnotacoes) {
             if (anotacao instanceof CucumberOptions) {
@@ -188,6 +193,26 @@ public class UtilSBCucumber {
                 }
                 // etapasEncontradas.add(etapa.)
             });
+
+            int i = 1;
+            for (EtapaCucumber etapa : etapasImplementadas) {
+                String classe = etapa.getNomeClasse();
+                String parteAnalizada = classe.substring(0, 2);
+                String valorAtual = UtilSBCoreStringFiltros.getNumericosDaString(parteAnalizada);
+
+                if (!valorAtual.equals(String.valueOf(i))) {
+                    String parteNova = "";
+                    if (valorAtual.isEmpty()) {
+                        parteNova = String.valueOf(i) + classe.substring(0, 2);
+                    } else {
+                        parteNova = parteAnalizada.replace(valorAtual, String.valueOf(i));
+                    }
+                    String novoNomeClasse = parteNova + classe.substring(2, classe.length());
+                    System.out.println(novoNomeClasse);
+                }
+                i++;
+            }
+
             return etapasImplementadas;
         } catch (NoSuchFieldException ex) {
             Logger.getLogger(UtilSBCucumber.class.getName()).log(Level.SEVERE, null, ex);

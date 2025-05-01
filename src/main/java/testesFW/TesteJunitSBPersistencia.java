@@ -20,9 +20,9 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit implements Itf
     public static EntityManager getEM() {
         try {
             if (UtilSBCoreTestes.emContextoTEste == null) {
-                UtilSBCoreTestes.emContextoTEste = SBCore.getCentralDados().gerarNovoEntityManagerPadrao();
+                UtilSBCoreTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
             } else if (!UtilSBCoreTestes.emContextoTEste.isOpen()) {
-                UtilSBCoreTestes.emContextoTEste = SBCore.getCentralDados().gerarNovoEntityManagerPadrao();
+                UtilSBCoreTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
             }
             return UtilSBCoreTestes.emContextoTEste;
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit implements Itf
             UtilSBCoreTestes.emContextoTEste.close();
         }
         UtilSBCoreTestes.emContextoTEste = null;
-        UtilSBCoreTestes.emContextoTEste = SBCore.getCentralDados().gerarNovoEntityManagerPadrao();
+        UtilSBCoreTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
         return UtilSBCoreTestes.emContextoTEste;
 
     }
