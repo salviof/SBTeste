@@ -9,14 +9,17 @@
 
     <groupId>br.org.coletivoJava.fw</groupId>
     <version>1.0.0-RC-SNAPSHOT</version>
-    <artifactId>SBTestes</artifactId>
-    <name>SBTestes</name>
+    <artifactId>SBTeste</artifactId>
+    <name>SBTeste</name>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <projetoSB.cliente>coletivoJava</projetoSB.cliente>
+        <projetoSB.grupoProjeto>fw</projetoSB.grupoProjeto>
     </properties>
     <dependencies>
         <!-- Biblioteca do Jboss para geração de Código Fonte -->
@@ -44,7 +47,7 @@
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java8</artifactId>
             <version>1.2.5</version>
-          
+
         </dependency>
 
 

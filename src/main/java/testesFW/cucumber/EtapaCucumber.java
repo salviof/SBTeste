@@ -21,6 +21,8 @@ public class EtapaCucumber {
     private final String NOME_SLUG_VARIAVEL;
     private final String nomeClasse;
     private final Class anotacaoIndicada;
+    private final Method metodo;
+    private final String nomeClasseImplementada;
 
     public EtapaCucumber(Method pMetodo, String pDescritivoEtapa, String pTagFuncionalidade) {
         descritivo = pDescritivoEtapa;
@@ -28,7 +30,10 @@ public class EtapaCucumber {
         NOME_SLUG_VARIAVEL = UtilSBCucumber.gerarNomeVariavelDaEtapa(tipo, pDescritivoEtapa);
         anotacaoIndicada = UtilSBCucumber.getAnotacaoTipoEtapaDoMetodo(pMetodo);
         nomeClasse = UtilSBCucumber.gerarNomeClasseImplementacaoDaEtapa(tipo, pDescritivoEtapa);
+        metodo = pMetodo;
+        nomeClasseImplementada = getMetodo().getDeclaringClass().getSimpleName();
         tagFuncionalidade = pTagFuncionalidade;
+
     }
 
     public EtapaCucumber(Step pStep, String pTagFuncinalidade) {
@@ -38,10 +43,16 @@ public class EtapaCucumber {
             anotacaoIndicada = UtilSBCucumber.getAnotacaoByStep(pStep);
             nomeClasse = UtilSBCucumber.gerarNomeClasseImplementacaoDaEtapa(pStep.getKeyword(), pStep.getName());
             tagFuncionalidade = pTagFuncinalidade;
+            metodo = null;
+            nomeClasseImplementada = null;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha criando etapa cucumber", t);
             throw new UnsupportedOperationException("Falha criando dados de etapa cucumber");
         }
+    }
+
+    public Method getMetodo() {
+        return metodo;
     }
 
     public String getDescritivo() {
@@ -76,6 +87,10 @@ public class EtapaCucumber {
         }
         return ((EtapaCucumber) obj).getNOME_SLUG_VARIAVEL().equals(getNOME_SLUG_VARIAVEL());
 
+    }
+
+    public String getNomeClasseImplementada() {
+        return nomeClasseImplementada;
     }
 
 }

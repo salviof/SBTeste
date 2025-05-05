@@ -34,11 +34,7 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit implements Itf
 
     @Override
     public EntityManager renovarConexao() {
-        if (UtilSBCoreTestes.emContextoTEste != null) {
-            UtilSBCoreTestes.emContextoTEste.close();
-        }
-        UtilSBCoreTestes.emContextoTEste = null;
-        UtilSBCoreTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
+        UtilSBCoreTestes.renovarConexao();
         return UtilSBCoreTestes.emContextoTEste;
 
     }

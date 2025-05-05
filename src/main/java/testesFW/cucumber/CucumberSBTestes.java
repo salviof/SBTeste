@@ -6,6 +6,11 @@
 package testesFW.cucumber;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreOrdenacaoAlfabeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import cucumber.api.junit.Cucumber;
@@ -46,6 +51,7 @@ public class CucumberSBTestes extends Cucumber {
         //  getChildren().
 
         try {
+            TesteIntegracaoFuncionalidadeCucumber.CLASSE_FLUXO = classe;
             analizadorGherkin = UtilSBCucumber.getReflexaoAnalizadorGherkin(this);
             stepsNaoInjetadas = UtilSBCucumber.getReflexaoEtapasNaoInjetadas(analizadorGherkin);
             etapasImplementadasNoPacote.addAll(UtilSBCucumber.getReflexaotEtapasImplementasNoPacote(analizadorGherkin, getRunnerAnnotations()));
@@ -58,12 +64,50 @@ public class CucumberSBTestes extends Cucumber {
 
     }
 
+    public void numerarClasses() {
+        int i = 1;
+        for (Step stepFile : stepsArquivoFeature) {
+
+            EtapaCucumber etapa = UtilSBCucumber.getEtapaInstanciadaBySepFile(etapasImplementadasNoPacote, stepFile);
+            if (etapa != null) {
+
+                String classe = etapa.getNomeClasseImplementada();
+
+                // Obter o nome da classe (com pacote)
+                String parteAnalizada = classe.substring(0, 2);
+                boolean umaNomvaOrdenacao = !parteAnalizada.contains("_");
+
+                String valorAtual = UtilSBCoreStringFiltros.getApenasLetras(parteAnalizada);
+
+                String letraOrdemCorreta = UtilSBCoreOrdenacaoAlfabeto.numeroParaLetras(i);
+                if (!valorAtual.equals(letraOrdemCorreta)) {
+                    String parteNova = "";
+                    if (umaNomvaOrdenacao) {
+                        parteNova = letraOrdemCorreta + "_" + classe.substring(0, 2);
+                    } else {
+                        parteNova = parteAnalizada.replace(valorAtual, letraOrdemCorreta);
+                    }
+                    String novoNomeClasse = parteNova + classe.substring(2, classe.length());
+                    String caminho = UtilSBCucumber.gerarCaminhoDiretorioClasseEtapa(etapa);
+                    String arquivoAntigo = caminho + "/" + classe + ".java";
+                    String arquivoNovo = caminho + "/" + novoNomeClasse + ".java";
+
+                    UtilSBCoreArquivos.renomearArquivo(arquivoAntigo, arquivoNovo);
+                    UtilSBCoreArquivoTexto.substituirTextoNoArquivo(arquivoNovo, classe, novoNomeClasse);
+
+                }
+            }
+            i++;
+        }
+    }
+
     @Override
     public void run(RunNotifier notifier) {
 
         try {
             ItfTestesSBCore teste = (ItfTestesSBCore) getTestClass().getJavaClass().newInstance();
             teste.configContextoExecucao();
+            numerarClasses();
         } catch (InstantiationException ex) {
             Logger.getLogger(CucumberSBTestes.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {

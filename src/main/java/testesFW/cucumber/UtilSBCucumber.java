@@ -6,9 +6,11 @@
 package testesFW.cucumber;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorio;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringSlugs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import cucumber.api.CucumberOptions;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
@@ -37,6 +39,30 @@ import org.coletivojava.fw.api.tratamentoErros.FabErro;
  * @author sfurbino
  */
 public class UtilSBCucumber {
+
+    public static EtapaCucumber getEtapaInstanciadaBySepFile(List<EtapaCucumber> etapasImplementadas, Step pStep) {
+        for (EtapaCucumber etapa : etapasImplementadas) {
+            System.out.println(etapa.getAnotacaoIndicada());
+            System.out.println(etapa.getDescritivo());
+            System.out.println(etapa.getNOME_SLUG_VARIAVEL());
+            System.out.println(etapa.getTagFuncionalidade());
+            System.out.println(pStep.getName());
+            System.out.println(gerarNomeVariavelDaEtapaByStep(pStep));
+            System.out.println(etapa.getNOME_SLUG_VARIAVEL());
+            System.out.println(gerarNomeVariavelDaEtapaByStep(pStep));
+            String nomeEtapa = etapa.getNOME_SLUG_VARIAVEL();
+
+            String nomeIdeal = gerarNomeVariavelDaEtapaByStep(pStep);//.replace(etapa.getAnotacaoIndicada().getSimpleName(), "E");
+            String nomeIdealAlternativo = UtilSBCoreStringFiltros.substituirPrimeiro(gerarNomeVariavelDaEtapaByStep(pStep), "E", etapa.getAnotacaoIndicada().getSimpleName().toUpperCase());
+
+            //gerarNomeVariavelDaEtapaByStep(pStep).replace("E", etapa.getAnotacaoIndicada().getSimpleName());
+            if (nomeEtapa.equals(nomeIdeal)
+                    || nomeEtapa.equals(nomeIdealAlternativo)) {
+                return etapa;
+            }
+        }
+        return null;
+    }
 
     public static void gerarVariaveisEstaticasDasEtapas(List<EtapaCucumber> etapas, String pTagFuncionalidade) {
         try {
@@ -79,6 +105,7 @@ public class UtilSBCucumber {
 
     public static String gerarNomeClasseImplementacaoDaEtapa(String pTipoEtapa, String pTextoEtapa) {
         String nomeCompleto = pTipoEtapa + " " + pTextoEtapa;
+        nomeCompleto = nomeCompleto.replace("  ", " ");
         String nomeClasse = UtilSBCoreStringFiltros.gerarUrlAmigavel(nomeCompleto);
         nomeClasse = UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(nomeClasse);
         return nomeClasse;
@@ -92,8 +119,12 @@ public class UtilSBCucumber {
 
     }
 
-    public static String getDiretorioClasseEtapa(EtapaCucumber etapa, String pNomeFUncionalidade) {
-        String nomePAcote = "org.coletivoJava.fw.projetos." + SBCore.getGrupoProjeto() + ".implementacao.cucumber." + pNomeFUncionalidade.toLowerCase() + ".etapas";
+    public static String gerarCaminhoDiretorioClasseEtapa(EtapaCucumber etapa) {
+        String nomePAcote = "org.coletivoJava.fw.projetos." + SBCore.getGrupoProjeto() + ".implementacao.cucumber." + etapa.getTagFuncionalidade().toLowerCase() + ".etapas";
+        String direPacore = nomePAcote.replace(".", "/");
+        String diretorioDesenvolvimento = SBCore.getCaminhoDesenvolvimento() + "/src/test/java/";
+        String caminhoDiretorioClasse = diretorioDesenvolvimento + direPacore;
+        return caminhoDiretorioClasse;
 
     }
 
@@ -170,12 +201,12 @@ public class UtilSBCucumber {
 
     public static List<EtapaCucumber> getReflexaotEtapasImplementasNoPacote(RuntimeGlue pRuntimeGlue, Annotation[] pAnotacoesFluxo) {
         List<EtapaCucumber> etapasImplementadas = new ArrayList<>();
-        Field campoEtapasEncontradas;
+        Field campodefinicoesDeEtapaPorPadrao;
         try {
-            campoEtapasEncontradas = RuntimeGlue.class.getDeclaredField("stepDefinitionsByPattern");
-            campoEtapasEncontradas.setAccessible(true);
+            campodefinicoesDeEtapaPorPadrao = RuntimeGlue.class.getDeclaredField("stepDefinitionsByPattern");
+            campodefinicoesDeEtapaPorPadrao.setAccessible(true);
 
-            Map<String, StepDefinition> mapaetapasEncontradas = (Map<String, StepDefinition>) campoEtapasEncontradas.get(pRuntimeGlue);
+            Map<String, StepDefinition> mapaetapasEncontradas = (Map<String, StepDefinition>) campodefinicoesDeEtapaPorPadrao.get(pRuntimeGlue);
             mapaetapasEncontradas.values().stream().forEach(etapa -> {
                 try {
                     String texto = etapa.getPattern();
@@ -193,25 +224,6 @@ public class UtilSBCucumber {
                 }
                 // etapasEncontradas.add(etapa.)
             });
-
-            int i = 1;
-            for (EtapaCucumber etapa : etapasImplementadas) {
-                String classe = etapa.getNomeClasse();
-                String parteAnalizada = classe.substring(0, 2);
-                String valorAtual = UtilSBCoreStringFiltros.getNumericosDaString(parteAnalizada);
-
-                if (!valorAtual.equals(String.valueOf(i))) {
-                    String parteNova = "";
-                    if (valorAtual.isEmpty()) {
-                        parteNova = String.valueOf(i) + classe.substring(0, 2);
-                    } else {
-                        parteNova = parteAnalizada.replace(valorAtual, String.valueOf(i));
-                    }
-                    String novoNomeClasse = parteNova + classe.substring(2, classe.length());
-                    System.out.println(novoNomeClasse);
-                }
-                i++;
-            }
 
             return etapasImplementadas;
         } catch (NoSuchFieldException ex) {

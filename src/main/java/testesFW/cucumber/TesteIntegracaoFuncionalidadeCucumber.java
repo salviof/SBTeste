@@ -5,9 +5,13 @@
  */
 package testesFW.cucumber;
 
-import cucumber.api.java.After;
-import java.util.HashMap;
-import java.util.Map;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoStaticDeclare;
+import com.super_bits.modulosSB.SBCore.modulos.fonteDados.TokenAcessoDados;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.testes.UtilSBCoreTestes;
+import org.junit.AfterClass;
 import testesFW.ItfTestesSBCore;
 import testesFW.TesteJunitSBPersistencia;
 import testesFW.devOps.DevOpsCucumberPersistenciaMysql;
@@ -18,21 +22,28 @@ import testesFW.devOps.DevOpsCucumberPersistenciaMysql;
  */
 public abstract class TesteIntegracaoFuncionalidadeCucumber extends TesteJunitSBPersistencia implements ItfTestesSBCore {
 
-    Map<String, Object> mapaObjetosDaIntegracao = new HashMap<>();
+    protected static Class CLASSE_FLUXO;
 
     public static void renovarConexaoEntityManagerEscopoTeste() {
-        
-        TesteJunitSBPersistencia teste = new TesteJunitSBPersistencia() {
-            @Override
-            protected void configAmbienteDesevolvimento() {
 
-            }
-        };
-        teste.renovarConexao();
-    }
-
-    public void salvarResultadoFinalBanco() {
+        UtilSBCoreTestes.renovarConexao();
 
     }
 
+    public static void atualizarEntidadesDeclaradas() {
+        renovaConexaoEMAtualizandoEntidadesEstaticasDeclaradas();
+
+    }
+
+    private static void renovaConexaoEMAtualizandoEntidadesEstaticasDeclaradas() {
+        for (ItfBeanSimples entidade : UtilSBCoreReflexaoStaticDeclare.getEntidadesEstaticasDeclaradas(CLASSE_FLUXO)) {
+            System.out.println("ATUALIZANDO" + entidade);
+            SBCore.getServicoRepositorio().getRegistroByID(new TokenAcessoDados(getEM()), MapaObjetosProjetoAtual.getClasseDoObjetoByNome(entidade.getClass().getSimpleName()), entidade.getId());
+        }
+    }
+
+    @AfterClass
+    public static void salvarResultadoFinalBanco() {
+        DevOpsCucumberPersistenciaMysql.commpilarResultadoRequisito(CLASSE_FLUXO);
+    }
 }
