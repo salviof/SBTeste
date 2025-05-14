@@ -40,7 +40,7 @@ public abstract class TesteIntegracaoFuncionalidadeCucumber extends TesteJunitSB
     }
 
     private static void renovaConexaoEMAtualizandoEntidadesEstaticasDeclaradas() {
-
+        UtilSBCoreTestes.renovarConexao();
         List<Field> campos = UtilSBCoreReflexaoStaticDeclare.getObjetosEstaticosDestaClasse(CLASSE_FLUXO, ItfBeanSimples.class);
 
         for (Field cp : campos) {
