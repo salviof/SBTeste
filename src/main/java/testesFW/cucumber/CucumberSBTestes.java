@@ -150,6 +150,7 @@ public class CucumberSBTestes extends Cucumber {
 
             System.out.println("O sistema irá criar a classe com Strings estáticas que definem as funcionalidades" + tagFuncionalidade);
             SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.NOTIFICAR, tagFuncionalidade);
+
             UtilSBCucumber.gerarVariaveisEstaticasDasEtapas(todasEtapas, tagFuncionalidadeSemArroba);
             etapasNaoEncontradas.stream().forEach(etapa -> {
                 if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(
