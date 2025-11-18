@@ -5,7 +5,7 @@
 package testesFW;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 
 /**
  *
@@ -31,7 +31,7 @@ public abstract class TestesModelagem extends TesteJunit {
 
     }
 
-    public void validarCampo(ItfBeanSimples valor, String campo) {
+    public void validarCampo(ComoEntidadeSimples valor, String campo) {
 
     }
 

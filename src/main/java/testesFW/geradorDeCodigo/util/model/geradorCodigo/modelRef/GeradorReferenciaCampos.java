@@ -5,7 +5,7 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.modelRef;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import java.io.File;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorEnumEscopoModel;
 import java.lang.reflect.Field;
@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
  */
 public class GeradorReferenciaCampos extends GeradorEnumEscopoModel {
 
-    public GeradorReferenciaCampos(Class<? extends ItfBeanSimples> entidade) {
+    public GeradorReferenciaCampos(Class<? extends ComoEntidadeSimples> entidade) {
         super(entidade.getSimpleName(), "CP" + entidade.getSimpleName());
         adicionarReferenciaDeEntidade(entidade.getSimpleName());
         for (Field campo : entidade.getDeclaredFields()) {

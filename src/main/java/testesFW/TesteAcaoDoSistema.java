@@ -4,9 +4,9 @@
  */
 package testesFW;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilFabricaDeAcoesBasico;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
 /**
  *
@@ -18,7 +18,7 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
     private boolean validarAcoesNaoConfiguradas = false;
 
-    private boolean validarAcao(ItfAcaoDoSistema pAcaoDoSistema) {
+    private boolean validarAcao(ComoAcaoDoSistema pAcaoDoSistema) {
 
         try {
 
@@ -46,8 +46,8 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
         for (Object obj : pFabricaDeAcoes.getEnumConstants()) {
             try {
 
-                ItfFabricaAcoes fabrica = (ItfFabricaAcoes) obj;
-                ItfAcaoDoSistema novaAcao = fabrica.getRegistro();
+                ComoFabricaAcoes fabrica = (ComoFabricaAcoes) obj;
+                ComoAcaoDoSistema novaAcao = fabrica.getRegistro();
 
                 if (novaAcao == null) {
                     throw new UnsupportedOperationException("Ação " + pFabricaDeAcoes.toString() + " retornou nulo a partir da fábrica");

@@ -5,12 +5,12 @@
 package testesFW;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import testesFW.geradorDeCodigo.util.UtilSBDevelGeradorCodigoModel;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.modelRef.GeradorReferenciaCampos;
 import java.util.List;
@@ -31,7 +31,7 @@ public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSB
         configAmbienteDesevolvimento();
     }
 
-    public void preenchimentoAleatorio(ItfBeanSimples o) {
+    public void preenchimentoAleatorio(ComoEntidadeSimples o) {
         o.getCamposInstanciados().forEach(cp -> cp.preenchimentoAleatorio());
     }
 
@@ -64,7 +64,7 @@ public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSB
         List<EstruturaDeEntidade> objetos = MapaObjetosProjetoAtual.getListaTodosEstruturaObjeto();
         objetos.forEach(est -> {
             Class classe = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(est.getNomeEntidade());
-            if (!classe.isAssignableFrom(ItfAcaoDoSistema.class)) {
+            if (!classe.isAssignableFrom(ComoAcaoDoSistema.class)) {
                 if (!classe.getSimpleName().startsWith("Acao") && !classe.getSimpleName().startsWith("estrutura")) {
                     GeradorReferenciaCampos ref = new GeradorReferenciaCampos(classe);
                     ref.salvarEmDiretorioPadraoSubstituindoAnterior();
