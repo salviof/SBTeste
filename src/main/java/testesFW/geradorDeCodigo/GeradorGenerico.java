@@ -5,7 +5,7 @@
 package testesFW.geradorDeCodigo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoReferenciaEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import java.io.File;
@@ -67,13 +67,13 @@ public abstract class GeradorGenerico {
         System.out.println("-------------");
         System.out.println(getCodigoJava().toString());
 
-        UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(getCaminhoLocalSalvarCodigo(), getCodigoJava().toString());
+        UtilCRCArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(getCaminhoLocalSalvarCodigo(), getCodigoJava().toString());
     }
 
     public void salvarEmDiretorioPadraCASO_NAO_EXISTA() {
         File arquivo = new File(getCaminhoLocalSalvarCodigo());
         if (!arquivo.exists()) {
-            UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(getCaminhoLocalSalvarCodigo(), getCodigoJava().toString());
+            UtilCRCArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(getCaminhoLocalSalvarCodigo(), getCodigoJava().toString());
         }
 
     }

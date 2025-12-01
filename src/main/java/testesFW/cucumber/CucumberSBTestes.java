@@ -6,11 +6,11 @@
 package testesFW.cucumber;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreOrdenacaoAlfabeto;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCOrdenacaoAlfabeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import cucumber.api.junit.Cucumber;
@@ -77,9 +77,9 @@ public class CucumberSBTestes extends Cucumber {
                 String parteAnalizada = classe.substring(0, 2);
                 boolean umaNomvaOrdenacao = !parteAnalizada.contains("_");
 
-                String valorAtual = UtilSBCoreStringFiltros.getApenasLetras(parteAnalizada);
+                String valorAtual = UtilCRCStringFiltros.getApenasLetras(parteAnalizada);
 
-                String letraOrdemCorreta = UtilSBCoreOrdenacaoAlfabeto.numeroParaLetras(i);
+                String letraOrdemCorreta = UtilCRCOrdenacaoAlfabeto.numeroParaLetras(i);
                 if (!valorAtual.equals(letraOrdemCorreta)) {
                     String parteNova = "";
                     if (umaNomvaOrdenacao) {
@@ -92,8 +92,8 @@ public class CucumberSBTestes extends Cucumber {
                     String arquivoAntigo = caminho + "/" + classe + ".java";
                     String arquivoNovo = caminho + "/" + novoNomeClasse + ".java";
 
-                    UtilSBCoreArquivos.renomearArquivo(arquivoAntigo, arquivoNovo);
-                    UtilSBCoreArquivoTexto.substituirTextoNoArquivo(arquivoNovo, classe, novoNomeClasse);
+                    UtilCRCArquivos.renomearArquivo(arquivoAntigo, arquivoNovo);
+                    UtilCRCArquivoTexto.substituirTextoNoArquivo(arquivoNovo, classe, novoNomeClasse);
 
                 }
             }

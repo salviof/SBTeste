@@ -5,9 +5,9 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringValidador;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringValidador;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
@@ -27,7 +27,7 @@ public class GeradorValorLogicaClasseImplementacao extends GeradorClasseEscopoMo
     }
 
     public GeradorValorLogicaClasseImplementacao(ItfEstruturaCampoEntidade pCampo) {
-        super(gerarSubPacote(pCampo), "ValorLogico" + pCampo.getEstruturaPai().getNome() + UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(pCampo.getNomeDeclarado()));
+        super(gerarSubPacote(pCampo), "ValorLogico" + pCampo.getEstruturaPai().getNome() + UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(pCampo.getNomeDeclarado()));
         try {
             getCodigoJava().extendSuperType(ValorLogicoCalculoGenerico.class);
 

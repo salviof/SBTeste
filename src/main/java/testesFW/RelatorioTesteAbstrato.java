@@ -6,7 +6,7 @@ package testesFW;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.tratamentoErros.ItfInfoErroSB;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ItfRelatorioTestes;
@@ -36,8 +36,8 @@ public abstract class RelatorioTesteAbstrato extends TesteJunit implements ItfRe
         }
 
         String arquivoRelatorio = SBCore.getCaminhoDesenvolvimento() + "/temp/errosAcoes.txt";
-        UtilSBCoreArquivoTexto.limparArquivoTexto(arquivoRelatorio);
-        UtilSBCoreArquivoTexto.printLnNoArquivo(mensagem, arquivoRelatorio);
+        UtilCRCArquivoTexto.limparArquivoTexto(arquivoRelatorio);
+        UtilCRCArquivoTexto.printLnNoArquivo(mensagem, arquivoRelatorio);
     }
 
     @Override

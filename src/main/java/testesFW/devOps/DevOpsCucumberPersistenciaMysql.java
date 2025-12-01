@@ -6,7 +6,7 @@
 package testesFW.devOps;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCShellBasico;
 import cucumber.api.CucumberOptions;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,7 +38,7 @@ public class DevOpsCucumberPersistenciaMysql {
         try {
             String caminhoArquivo = caminhoExecucao + "/compilaBancoCucumber.sh";
             IOUtils.copy(is, new FileOutputStream(caminhoArquivo));
-            String resposta = UtilSBCoreShellBasico.executeCommand(caminhoArquivo + " " + slugRequisito);
+            String resposta = UtilCRCShellBasico.executeCommand(caminhoArquivo + " " + slugRequisito);
             System.out.println(resposta);
         } catch (FileNotFoundException ex) {
             return false;
@@ -61,8 +61,8 @@ public class DevOpsCucumberPersistenciaMysql {
         try {
             String caminhoArquivo = caminhoExecucao + "/carregaBancoCucumber.sh";
             IOUtils.copy(is, new FileOutputStream(caminhoArquivo));
-            //  UtilSBCoreShellBasico.executeCommand("chmod +x " + caminhoArquivo);
-            String resposta = UtilSBCoreShellBasico.executeCommand(caminhoArquivo + " " + slugRequisito);
+            //  UtilCRCShellBasico.executeCommand("chmod +x " + caminhoArquivo);
+            String resposta = UtilCRCShellBasico.executeCommand(caminhoArquivo + " " + slugRequisito);
             System.out.println(resposta);
         } catch (FileNotFoundException ex) {
 

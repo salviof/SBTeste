@@ -6,11 +6,11 @@
 package testesFW.cucumber;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoStaticDeclare;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoStaticDeclare;
 import com.super_bits.modulosSB.SBCore.modulos.fonteDados.TokenAcessoDados;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
-import com.super_bits.modulosSB.SBCore.modulos.testes.UtilSBCoreTestes;
+import com.super_bits.modulosSB.SBCore.modulos.testes.UtilCRCTestes;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ public abstract class TesteIntegracaoFuncionalidadeCucumber extends TesteJunitSB
 
     public static void renovarConexaoEntityManagerEscopoTeste() {
 
-        UtilSBCoreTestes.renovarConexao();
+        UtilCRCTestes.renovarConexao();
 
     }
 
@@ -40,8 +40,8 @@ public abstract class TesteIntegracaoFuncionalidadeCucumber extends TesteJunitSB
     }
 
     private static void renovaConexaoEMAtualizandoEntidadesEstaticasDeclaradas() {
-        UtilSBCoreTestes.renovarConexao();
-        List<Field> campos = UtilSBCoreReflexaoStaticDeclare.getObjetosEstaticosDestaClasse(CLASSE_FLUXO, ComoEntidadeSimples.class);
+        UtilCRCTestes.renovarConexao();
+        List<Field> campos = UtilCRCReflexaoStaticDeclare.getObjetosEstaticosDestaClasse(CLASSE_FLUXO, ComoEntidadeSimples.class);
 
         for (Field cp : campos) {
             ComoEntidadeSimples entidade;

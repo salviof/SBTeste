@@ -6,11 +6,11 @@
 package testesFW.cucumber;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorio;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringSlugs;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCDiretorio;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringSlugs;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivos;
 import cucumber.api.CucumberOptions;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
@@ -53,7 +53,7 @@ public class UtilSBCucumber {
             String nomeEtapa = etapa.getNOME_SLUG_VARIAVEL();
 
             String nomeIdeal = gerarNomeVariavelDaEtapaByStep(pStep);//.replace(etapa.getAnotacaoIndicada().getSimpleName(), "E");
-            String nomeIdealAlternativo = UtilSBCoreStringFiltros.substituirPrimeiro(gerarNomeVariavelDaEtapaByStep(pStep), "E", etapa.getAnotacaoIndicada().getSimpleName().toUpperCase());
+            String nomeIdealAlternativo = UtilCRCStringFiltros.substituirPrimeiro(gerarNomeVariavelDaEtapaByStep(pStep), "E", etapa.getAnotacaoIndicada().getSimpleName().toUpperCase());
 
             //gerarNomeVariavelDaEtapaByStep(pStep).replace("E", etapa.getAnotacaoIndicada().getSimpleName());
             if (nomeEtapa.equals(nomeIdeal)
@@ -98,7 +98,7 @@ public class UtilSBCucumber {
 
     public static String gerarNomeVariavelDaEtapa(String pTipoEtapa, String pTextoEtapa) {
         String nomeCompleto = pTipoEtapa + " " + pTextoEtapa;
-        String nomeVariavel = UtilSBCoreStringSlugs.gerarSlugCaixaAlta(nomeCompleto);
+        String nomeVariavel = UtilCRCStringSlugs.gerarSlugCaixaAlta(nomeCompleto);
         nomeVariavel = nomeVariavel.replace("__", "_");
         return nomeVariavel;
     }
@@ -106,8 +106,8 @@ public class UtilSBCucumber {
     public static String gerarNomeClasseImplementacaoDaEtapa(String pTipoEtapa, String pTextoEtapa) {
         String nomeCompleto = pTipoEtapa + " " + pTextoEtapa;
         nomeCompleto = nomeCompleto.replace("  ", " ");
-        String nomeClasse = UtilSBCoreStringFiltros.gerarUrlAmigavel(nomeCompleto);
-        nomeClasse = UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(nomeClasse);
+        String nomeClasse = UtilCRCStringFiltros.gerarUrlAmigavel(nomeCompleto);
+        nomeClasse = UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(nomeClasse);
         return nomeClasse;
     }
 

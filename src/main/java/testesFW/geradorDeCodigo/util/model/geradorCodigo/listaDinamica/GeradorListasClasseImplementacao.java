@@ -5,8 +5,8 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringValidador;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringValidador;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
@@ -26,7 +26,7 @@ public class GeradorListasClasseImplementacao extends GeradorClasseEscopoModel {
     }
 
     public GeradorListasClasseImplementacao(ItfEstruturaCampoEntidade pCampo) {
-        super(gerarSubPacote(pCampo), "Lista" + pCampo.getEstruturaPai().getNome() + UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(pCampo.getNomeDeclarado()));
+        super(gerarSubPacote(pCampo), "Lista" + pCampo.getEstruturaPai().getNome() + UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(pCampo.getNomeDeclarado()));
         try {
             getCodigoJava().extendSuperType(ListaDinamicaGenerica.class);
 

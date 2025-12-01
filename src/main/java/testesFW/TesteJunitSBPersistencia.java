@@ -6,7 +6,7 @@ package testesFW;
 
 import com.super_bits.modulosSB.SBCore.modulos.testes.ItfTesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.testes.UtilSBCoreTestes;
+import com.super_bits.modulosSB.SBCore.modulos.testes.UtilCRCTestes;
 
 import javax.persistence.EntityManager;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
@@ -19,12 +19,12 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit implements Itf
 
     public static EntityManager getEM() {
         try {
-            if (UtilSBCoreTestes.emContextoTEste == null) {
-                UtilSBCoreTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
-            } else if (!UtilSBCoreTestes.emContextoTEste.isOpen()) {
-                UtilSBCoreTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
+            if (UtilCRCTestes.emContextoTEste == null) {
+                UtilCRCTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
+            } else if (!UtilCRCTestes.emContextoTEste.isOpen()) {
+                UtilCRCTestes.emContextoTEste = SBCore.getServicoRepositorio().gerarNovoEntityManagerPadrao();
             }
-            return UtilSBCoreTestes.emContextoTEste;
+            return UtilCRCTestes.emContextoTEste;
         } catch (Exception e) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo entity manager para pagina", e);
 
@@ -34,8 +34,8 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit implements Itf
 
     @Override
     public EntityManager renovarConexao() {
-        UtilSBCoreTestes.renovarConexao();
-        return UtilSBCoreTestes.emContextoTEste;
+        UtilCRCTestes.renovarConexao();
+        return UtilCRCTestes.emContextoTEste;
 
     }
 
