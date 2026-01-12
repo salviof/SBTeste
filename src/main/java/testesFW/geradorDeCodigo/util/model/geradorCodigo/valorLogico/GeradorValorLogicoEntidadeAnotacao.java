@@ -2,11 +2,10 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica;
+package testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico;
 
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorAnotacaoEscopoModel;
+import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorAnotacaoPacoteApiEntidade;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,18 +17,18 @@ import org.jboss.forge.roaster.model.AnnotationElement;
  *
  * @author desenvolvedor
  */
-public class GeradorListasAnotacao extends GeradorAnotacaoEscopoModel {
+public class GeradorValorLogicoEntidadeAnotacao extends GeradorAnotacaoPacoteApiEntidade {
 
-    public GeradorListasAnotacao(ItfEstruturaDeEntidade pEstrutura) {
-        super(pEstrutura.getNomeEntidade(), "Lista" + pEstrutura.getNomeEntidade());
-        GeradorListasEnum geradorEnum = new GeradorListasEnum(pEstrutura);
+    public GeradorValorLogicoEntidadeAnotacao(ItfEstruturaDeEntidade pEstrutura) {
+        super(pEstrutura, "ValorLogico" + pEstrutura.getNomeEntidade());
+        GeradorValorLogicoEntidadeEnum geradorEnum = new GeradorValorLogicoEntidadeEnum(pEstrutura);
         geradorEnum.getCodigoJava();
         getCodigoJava().addAnnotation(Documented.class);
         getCodigoJava().addAnnotation(Retention.class).setEnumValue(RetentionPolicy.RUNTIME);
         getCodigoJava().addAnnotation(Target.class).setEnumValue(ElementType.TYPE);
 
         getCodigoJava().addImport(geradorEnum.getCodigoJava());
-        AnnotationElement elemento = getCodigoJava().addAnnotationElement(geradorEnum.getCodigoJava().getName() + " lista();");
+        AnnotationElement elemento = getCodigoJava().addAnnotationElement(geradorEnum.getCodigoJava().getName() + " calculo();");
         adicionarReferenciaDeEntidade(pEstrutura.getNomeEntidade());
         //().addAnnotationElement("validador=");
     }

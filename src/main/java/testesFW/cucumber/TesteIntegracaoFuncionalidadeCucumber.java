@@ -9,7 +9,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoStaticDeclare;
 import com.super_bits.modulosSB.SBCore.modulos.fonteDados.TokenAcessoDados;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoEntidadeSimples;
 import com.super_bits.modulosSB.SBCore.modulos.testes.UtilCRCTestes;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -50,7 +50,7 @@ public abstract class TesteIntegracaoFuncionalidadeCucumber extends TesteJunitSB
                 if (entidade != null) {
                     System.out.println("ATUALIZANDO" + entidade);
 
-                    cp.set(null, SBCore.getServicoRepositorio().getRegistroByID(new TokenAcessoDados(getEM()), MapaObjetosProjetoAtual.getClasseDoObjetoByNome(entidade.getClass().getSimpleName()), entidade.getId()));
+                    cp.set(null, SBCore.getServicoRepositorio().getEntidadeByID(new TokenAcessoDados(getEM()), MapaObjetosProjetoAtual.getClasseDoObjetoByNome(entidade.getClass().getSimpleName()), entidade.getId()));
                 }
             } catch (IllegalArgumentException ex) {
                 Logger.getLogger(TesteIntegracaoFuncionalidadeCucumber.class.getName()).log(Level.SEVERE, null, ex);

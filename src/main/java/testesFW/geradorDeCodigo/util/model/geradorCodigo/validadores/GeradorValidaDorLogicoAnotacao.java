@@ -5,7 +5,7 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.validadores;
 
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorAnotacaoEscopoModel;
+import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorAnotacaoPacoteApiEntidade;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -17,11 +17,11 @@ import org.jboss.forge.roaster.model.AnnotationElement;
  *
  * @author desenvolvedor
  */
-public class GeradorValidaDorLogicoAnotacao extends GeradorAnotacaoEscopoModel {
+public class GeradorValidaDorLogicoAnotacao extends GeradorAnotacaoPacoteApiEntidade {
 
-    public GeradorValidaDorLogicoAnotacao(ItfEstruturaDeEntidade pEstrutura) {
-        super(pEstrutura.getNomeEntidade(), "Validador" + pEstrutura.getNomeEntidade());
-        GeradorValidadorLogicoEnum geradorEnum = new GeradorValidadorLogicoEnum(pEstrutura);
+    public GeradorValidaDorLogicoAnotacao(ItfEstruturaDeEntidade pEstrutura, boolean pModoERP) {
+        super(pEstrutura, "Validador" + pEstrutura.getNomeEntidade());
+        GeradorValidadorLogicoEnum geradorEnum = new GeradorValidadorLogicoEnum(pEstrutura, pModoERP);
         geradorEnum.getCodigoJava();
         getCodigoJava().addAnnotation(Documented.class);
         getCodigoJava().addAnnotation(Retention.class).setEnumValue(RetentionPolicy.RUNTIME);

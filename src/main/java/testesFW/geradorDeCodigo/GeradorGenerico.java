@@ -43,12 +43,10 @@ public abstract class GeradorGenerico {
         switch (pTipoPacote) {
             case IMPLEMENTACAO:
                 return SBCore.getCaminhoDesenvolvimento() + "/src/main/java/";
-
             case TESTES:
                 return SBCore.getCaminhoDesenvolvimento() + "/src/test/java/";
             default:
                 throw new AssertionError(pTipoPacote.name());
-
         }
 
     }

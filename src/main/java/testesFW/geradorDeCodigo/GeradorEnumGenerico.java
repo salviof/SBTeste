@@ -15,6 +15,10 @@ public class GeradorEnumGenerico extends GeradorGenerico {
 
     private final JavaEnumSource enumgerado;
 
+    public GeradorEnumGenerico(String pPacote, String pNomeClasse) {
+        this(pPacote, pNomeClasse, GeradorGenerico.TIPO_PACOTE.IMPLEMENTACAO);
+    }
+
     @Override
     public final JavaEnumSource getCodigoJava() {
         return enumgerado;
@@ -26,10 +30,6 @@ public class GeradorEnumGenerico extends GeradorGenerico {
         enumgerado.setName(pNomeClasse);
         enumgerado.setPackage(pPacote);
 
-    }
-
-    public GeradorEnumGenerico(String pPacote, String pNomeClasse) {
-        this(pPacote, pNomeClasse, GeradorGenerico.TIPO_PACOTE.IMPLEMENTACAO);
     }
 
 }

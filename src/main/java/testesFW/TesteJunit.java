@@ -4,16 +4,21 @@
  */
 package testesFW;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoEntidadeSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
 import testesFW.geradorDeCodigo.util.UtilSBDevelGeradorCodigoModel;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.modelRef.GeradorReferenciaCampos;
 import java.util.List;
+import java.util.function.Consumer;
 import org.junit.Before;
 
 /**
@@ -61,50 +66,79 @@ public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSB
     }
 
     public void gerarCodigoModelProjeto() {
+
+        if (CarameloCode.isProjetoModuloERP()) {
+            throw new UnsupportedOperationException("Utilize " + TesteJunitJPAModuloERP.class.getSimpleName() + ".gerarCodigoModelERP() ");
+        }
+        boolean contextoERP = CarameloCode.isProjetoModuloERP();
+        if (!(CarameloCode.getTipoProjeto().equals(FabTipoProjeto.MODEL) || CarameloCode.getTipoProjeto().equals(FabTipoProjeto.MODEL_E_CONTROLLER))) {
+            throw new UnsupportedOperationException("Este projeto não é to tipo model");
+        }
+
         List<EstruturaDeEntidade> objetos = MapaObjetosProjetoAtual.getListaTodosEstruturaObjeto();
-        objetos.forEach(est -> {
-            Class classe = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(est.getNomeEntidade());
-            if (!classe.isAssignableFrom(ComoAcaoDoSistema.class)) {
-                if (!classe.getSimpleName().startsWith("Acao") && !classe.getSimpleName().startsWith("estrutura")) {
-                    GeradorReferenciaCampos ref = new GeradorReferenciaCampos(classe);
-                    ref.salvarEmDiretorioPadraoSubstituindoAnterior();
+        objetos.forEach(new Consumer<EstruturaDeEntidade>() {
+            @Override
+            public void accept(EstruturaDeEntidade est) {
+                Class classe = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(est.getNomeEntidade());
+                FabTipoCodigoDeEntidade tipo = FabTipoCodigoDeEntidade.getTipoProjeto(est);
+                switch (tipo) {
+                    case EXTENCAO_MODULO_ERP:
+                        break;
+                    case PROJETO_AUTONOMO:
+                    case MODULO_ERP:
+                        GeradorReferenciaCampos ref = new GeradorReferenciaCampos(MapaObjetosProjetoAtual.getEstruturaObjeto(classe), classe, contextoERP);
+                        ref.salvarEmDiretorioPadraoSubstituindoAnterior();
+
+                        break;
+                    default:
+                        throw new AssertionError();
                 }
 
+                try {
+
+                    if (est.isTemCampoValidadoresLogicos()) {
+                        criarAnotacaoValidacao(est);
+                    }
+                    if (est.isTemCampoValorLogico()) {
+                        criarAnotacaoValorLogico(est);
+                    }
+
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, t.getMessage(), t);
+                }
             }
-
-            try {
-                if (est.isTemCampoValidadoresLogicos()) {
-                    criarAnotacaoValidacao(est);
-                }
-                if (est.isTemCampoValorLogico()) {
-                    criarAnotacaoCalculo(est);
-                }
-                if (est.isTemCampoListaDinamica()) {
-                    criarAnotacaoLista(est);
-                }
-
-            } catch (Throwable t) {
-                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, t.getMessage(), t);
-            }
-
         });
 
     }
 
     public void criarAnotacaoValidacao(ItfEstruturaDeEntidade estEstrutura) {
-        UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValidadoresApi(estEstrutura);
-        estEstrutura.getCamposComValidadorLogico().forEach(UtilSBDevelGeradorCodigoModel::homologarClassesDeValidacao);
+        if (estEstrutura.isUmaEntidadeModuloERP()) {
+            if (CarameloCode.isProjetoModuloERP()) {
+                UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValidadoresApi(estEstrutura, CarameloCode.isProjetoModuloERP());
+            }
+        } else {
+            UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValidadoresApi(estEstrutura, CarameloCode.isProjetoModuloERP());
+        }
+
+        for (ItfEstruturaCampoEntidade pCampo : estEstrutura.getCamposComValidadorLogico()) {
+            UtilSBDevelGeradorCodigoModel.homologarClassesDeValidacao(pCampo, CarameloCode.isProjetoModuloERP());
+        }
 
     }
 
-    public void criarAnotacaoCalculo(ItfEstruturaDeEntidade calculo) {
-        UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(calculo);
-        calculo.getCamposComValorLogico().forEach(UtilSBDevelGeradorCodigoModel::homologarClassesDeValorLogico);
-    }
+    public void criarAnotacaoValorLogico(ItfEstruturaDeEntidade estEstrutura) {
+        boolean contextoERP = CarameloCode.isProjetoModuloERP();
+        if (estEstrutura.isUmaEntidadeModuloERP()) {
+            if (contextoERP) {
+                UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(estEstrutura, contextoERP);
+            }
+        } else {
+            UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(estEstrutura, CarameloCode.isProjetoModuloERP());
+        }
 
-    public void criarAnotacaoLista(ItfEstruturaDeEntidade lista) {
-        UtilSBDevelGeradorCodigoModel.gerarCodigoCampoListasApi(lista);
-        lista.getCamposComListaDinamica().forEach(UtilSBDevelGeradorCodigoModel::gerarCodigoCampoListaDinamica);
+        for (ItfEstruturaCampoEntidade pCampo : estEstrutura.getCamposComValorLogico()) {
+            UtilSBDevelGeradorCodigoModel.homologarClassesDeValorLogico(pCampo, contextoERP);
+        }
     }
 
 }

@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package testesFW.geradorDeCodigo.util.model.geradorCodigo.validadores;
+package testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
@@ -13,16 +13,19 @@ import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorEnumPacoteApiEnt
  *
  * @author desenvolvedor
  */
-public class GeradorValidadorLogicoEnum extends GeradorEnumPacoteApiEntidade {
+public class GeradorValorLogicoEntidadeEnum extends GeradorEnumPacoteApiEntidade {
 
-    public GeradorValidadorLogicoEnum(ItfEstruturaDeEntidade pEntidade, boolean pModoErp) {
-        super(pEntidade, "Validadores" + pEntidade.getNomeEntidade(), pModoErp);
+    public GeradorValorLogicoEntidadeEnum(ItfEstruturaDeEntidade pEntidade) {
+        super(pEntidade, "ValoresLogicos" + pEntidade.getNomeEntidade(), pEntidade.isUmaEntidadeModuloERP());
 
+        System.out.println(pEntidade.getCamposComValidadorLogico());
         adicionarReferenciaDeEntidade(pEntidade.getNomeEntidade());
-        pEntidade.getCamposComValidadorLogico().forEach(cp
+
+        pEntidade.getCamposComValorLogico().forEach(cp
                 -> {
             try {
-                System.out.println("ValidadorLogico" + cp.getNomeDeclarado());
+                System.out.println("ValorLogico" + cp.getNomeDeclarado());
+
                 getCodigoJava().addEnumConstant(cp.getNomeDeclarado().toUpperCase());
             } catch (Throwable t) {
                 SBCore.RelatarErroAoUsuario(FabErro.SOLICITAR_REPARO, "Erro adicionando enum de validacao", t);

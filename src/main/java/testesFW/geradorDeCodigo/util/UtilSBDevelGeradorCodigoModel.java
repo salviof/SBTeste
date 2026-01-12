@@ -4,6 +4,8 @@
  */
 package testesFW.geradorDeCodigo.util;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabNomeClassePadraoAtributoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -12,18 +14,17 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComuni
 
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica.GeradorListasAnotacao;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica.GeradorListasClasseImplementacao;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.listaDinamica.GeradorListasEnum;
+
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.validadores.GeradorValidaDorLogicoAnotacao;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.validadores.GeradorValidadorLogicoEnum;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.validadores.GeradorValidicaoLogicaClasseImplementacao;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValorLogicaClasseImplementacao;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValorLogicoAnotacao;
-import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValorLogicoEnum;
+import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValorLogicoEntidadeImplementacao;
+import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValorLogicoEntidadeAnotacao;
+import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValorLogicoEntidadeEnum;
 import java.io.File;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 
 /**
  *
@@ -48,42 +49,32 @@ public class UtilSBDevelGeradorCodigoModel {
 
     }
 
-    public static void gerarCodigoCampoValorLogicaApi(ItfEstruturaDeEntidade estEstrutura) {
+    public static void gerarCodigoCampoValorLogicaApi(ItfEstruturaDeEntidade estEstrutura, boolean pModoERP) {
         if (!validarAmbienteModel()) {
             return;
         }
-        GeradorValorLogicoEnum valorEnum = new GeradorValorLogicoEnum(estEstrutura);
+        GeradorValorLogicoEntidadeEnum valorEnum = new GeradorValorLogicoEntidadeEnum(estEstrutura);
         valorEnum.salvarEmDiretorioPadraoSubstituindoAnterior();
-        GeradorValorLogicoAnotacao valorAnotacao = new GeradorValorLogicoAnotacao(estEstrutura);
+        GeradorValorLogicoEntidadeAnotacao valorAnotacao = new GeradorValorLogicoEntidadeAnotacao(estEstrutura);
         valorAnotacao.salvarEmDiretorioPadraoSubstituindoAnterior();
     }
 
-    public static void gerarCodigoCampoListasApi(ItfEstruturaDeEntidade estEstrutura) {
+    public static void gerarCodigoCampoValidadoresApi(ItfEstruturaDeEntidade estEstrutura, boolean pModoERP) {
         if (!validarAmbienteModel()) {
             return;
         }
-        GeradorListasEnum valorEnum = new GeradorListasEnum(estEstrutura);
-        valorEnum.salvarEmDiretorioPadraoSubstituindoAnterior();
-        GeradorListasAnotacao valorAnotacao = new GeradorListasAnotacao(estEstrutura);
-        valorAnotacao.salvarEmDiretorioPadraoSubstituindoAnterior();
-    }
-
-    public static void gerarCodigoCampoValidadoresApi(ItfEstruturaDeEntidade estEstrutura) {
-        if (!validarAmbienteModel()) {
-            return;
-        }
-        GeradorValidadorLogicoEnum enumValidacao = new GeradorValidadorLogicoEnum(estEstrutura);
+        GeradorValidadorLogicoEnum enumValidacao = new GeradorValidadorLogicoEnum(estEstrutura, pModoERP);
         enumValidacao.salvarEmDiretorioPadraoSubstituindoAnterior();
 
-        GeradorValidaDorLogicoAnotacao anotacaoValidacao = new GeradorValidaDorLogicoAnotacao(estEstrutura);
+        GeradorValidaDorLogicoAnotacao anotacaoValidacao = new GeradorValidaDorLogicoAnotacao(estEstrutura, pModoERP);
         anotacaoValidacao.salvarEmDiretorioPadraoSubstituindoAnterior();
     }
 
-    public static void homologarClassesDeValorLogico(ItfEstruturaCampoEntidade pCampo) {
+    public static void homologarClassesDeValorLogico(ItfEstruturaCampoEntidade pCampo, boolean pModoERP) {
         if (!validarAmbienteModel()) {
             return;
         }
-        GeradorValorLogicaClasseImplementacao classeValorLogica = new GeradorValorLogicaClasseImplementacao(pCampo);
+        GeradorValorLogicoEntidadeImplementacao classeValorLogica = new GeradorValorLogicoEntidadeImplementacao(pCampo);
         File arquivoLogicaValidacao = new File(classeValorLogica.getCaminhoLocalSalvarCodigo());
         if (!arquivoLogicaValidacao.exists()) {
             if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
@@ -96,11 +87,11 @@ public class UtilSBDevelGeradorCodigoModel {
 
     }
 
-    public static void homologarClassesDeValidacao(ItfEstruturaCampoEntidade pCampo) {
+    public static void homologarClassesDeValidacao(ItfEstruturaCampoEntidade pCampo, boolean pModoERP) {
         if (!validarAmbienteModel()) {
             return;
         }
-        GeradorValidicaoLogicaClasseImplementacao validador = new GeradorValidicaoLogicaClasseImplementacao(pCampo);
+        GeradorValidicaoLogicaClasseImplementacao validador = new GeradorValidicaoLogicaClasseImplementacao(pCampo, pModoERP);
         File arquivoLogicaValidacao = new File(validador.getCaminhoLocalSalvarCodigo());
 
         if (!arquivoLogicaValidacao.exists()) {
@@ -118,12 +109,15 @@ public class UtilSBDevelGeradorCodigoModel {
 
     }
 
-    public static void gerarCodigoCampoListaDinamica(ItfEstruturaCampoEntidade estEstrutura) {
-        if (!validarAmbienteModel()) {
-            return;
-        }
-        GeradorListasClasseImplementacao enumValidacao = new GeradorListasClasseImplementacao(estEstrutura);
-        enumValidacao.salvarEmDiretorioPadraoSubstituindoAnterior();
+    public static String getNomeClasseValidacao(ItfEstruturaCampoEntidade pCampo) {
+
+        return FabNomeClassePadraoAtributoEntidade.CLASSE_CAMPO_ENTIDADE_VALIDACAO.getNomeClassseAtributoEntidade(pCampo);
+
+    }
+
+    public static String getNomeClasseValorLogico(ItfEstruturaCampoEntidade pCampo) {
+
+        return FabNomeClassePadraoAtributoEntidade.CLASSE_CAMPO_ENTIDADE_VALOR_LOGICO.getNomeClassseAtributoEntidade(pCampo);
 
     }
 
