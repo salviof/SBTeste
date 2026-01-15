@@ -84,19 +84,17 @@ public class GeradorValorLogicoEntidadeImplementacao extends GeradorClassePacote
 
                     break;
                 case PROJETO_AUTONOMO:
-                    break;
                 case MODULO_ERP:
+                    String nomeEntidade
+                            = pCampo.getEstruturaPai().getNomeEntidade();
+                    getCodigoJava().addMethod("get" + nomeEntidade + "()")
+                            .setPublic()
+                            .setReturnType(nomeEntidade)
+                            .setBody("return (" + nomeEntidade + ") getCampoInst().getObjetoRaizDoAtributo();");
                     break;
                 default:
                     throw new AssertionError();
             }
-
-            String nomeEntidade
-                    = pCampo.getEstruturaPai().getNomeEntidade();
-            getCodigoJava().addMethod("get" + nomeEntidade + "()")
-                    .setPrivate()
-                    .setReturnType(nomeEntidade)
-                    .setBody("return (" + nomeEntidade + ") getCampoInst().getObjetoRaizDoAtributo();");
 
             //adicionarReferenciaDeEntidade(pCampo.getEstruturaPai().getNomeEntidade());
             AnnotationSource anotacao = getCodigoJava().addAnnotation(geradorAnotacao.getCodigoJava().getName());
