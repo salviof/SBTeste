@@ -14,10 +14,10 @@ import testesFW.geradorDeCodigo.GeradorEnumGenerico;
  */
 public class GeradorEnumPacoteApiEntidade extends GeradorEnumGenerico {
 
-    public GeradorEnumPacoteApiEntidade(ItfEstruturaDeEntidade pEntidade, String pNomeClasse, boolean pModoModuloERP) {
+    public GeradorEnumPacoteApiEntidade(ItfEstruturaDeEntidade pEstruturaEntidade, String pNomeClasse, boolean pModoModuloERP) {
 
-        super(pModoModuloERP ? FabPacoteCRCProjeto.MODULO_ERP_API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEntidade)
-                : FabPacoteCRCProjeto.API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEntidade),
+        super(pModoModuloERP ? FabPacoteCRCProjeto.MODULO_ERP_API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstruturaEntidade)
+                : FabPacoteCRCProjeto.API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstruturaEntidade),
                 pNomeClasse);
 
     }

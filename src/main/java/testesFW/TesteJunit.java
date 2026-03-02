@@ -8,7 +8,10 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaStatus;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
@@ -20,6 +23,7 @@ import testesFW.geradorDeCodigo.util.model.geradorCodigo.modelRef.GeradorReferen
 import java.util.List;
 import java.util.function.Consumer;
 import org.junit.Before;
+import testesFW.geradorDeCodigo.util.model.geradorCodigo.entidadeEstatica.GeradorReferenciaEntidadeEstatica;
 
 /**
  *
@@ -73,6 +77,15 @@ public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSB
         boolean contextoERP = CarameloCode.isProjetoModuloERP();
         if (!(CarameloCode.getTipoProjeto().equals(FabTipoProjeto.MODEL) || CarameloCode.getTipoProjeto().equals(FabTipoProjeto.MODEL_E_CONTROLLER))) {
             throw new UnsupportedOperationException("Este projeto não é to tipo model");
+        }
+
+        for (Class<? extends ComoFabrica> fabrica : SBCore.getFabricasStatus()) {
+
+            if (UtilCRCReflexao.isInterfaceImplementadaNaClasse(fabrica, ComoFabricaStatus.class)) {
+                GeradorReferenciaEntidadeEstatica geradorReferencia = new GeradorReferenciaEntidadeEstatica(fabrica);
+                geradorReferencia.salvarEmDiretorioPadraoSubstituindoAnterior();
+            }
+
         }
 
         List<EstruturaDeEntidade> objetos = MapaObjetosProjetoAtual.getListaTodosEstruturaObjeto();
