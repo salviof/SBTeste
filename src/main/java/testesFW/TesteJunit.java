@@ -72,7 +72,7 @@ public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSB
     public void gerarCodigoModelProjeto() {
 
         if (CarameloCode.isProjetoModuloERP()) {
-            throw new UnsupportedOperationException("Utilize " + TesteJunitJPAModuloERP.class.getSimpleName() + ".gerarCodigoModelERP() ");
+            throw new UnsupportedOperationException("Extenda seu teste com " + TesteJunitJPAModuloERP.class.getSimpleName() + " .gerarCodigoModelERP() ");
         }
         boolean contextoERP = CarameloCode.isProjetoModuloERP();
         if (!(CarameloCode.getTipoProjeto().equals(FabTipoProjeto.MODEL) || CarameloCode.getTipoProjeto().equals(FabTipoProjeto.MODEL_E_CONTROLLER))) {
