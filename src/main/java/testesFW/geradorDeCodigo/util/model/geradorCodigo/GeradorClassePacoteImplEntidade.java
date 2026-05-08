@@ -4,8 +4,8 @@
  */
 package testesFW.geradorDeCodigo.util.model.geradorCodigo;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabPacoteCRCProjeto;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.GeradorClasseGenerico;
 
@@ -17,8 +17,10 @@ public class GeradorClassePacoteImplEntidade extends GeradorClasseGenerico {
 
     public GeradorClassePacoteImplEntidade(ItfEstruturaDeEntidade pEstrutura, String pNomeClasse) {
 
-        super(CarameloCode.isProjetoModuloERP() ? FabPacoteCRCProjeto.MODULO_ERP_IMPLEMENTACAO_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura)
-                : FabPacoteCRCProjeto.IMPLEMENTACAO_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura), pNomeClasse);
+        super(FabTipoCodigoDeEntidade.getTipoProjeto(pEstrutura).isTipoCodigoERP(pEstrutura) ? FabPacoteCRCProjeto.MODULO_ERP_IMPLEMENTACAO_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura)
+                : FabPacoteCRCProjeto.IMPLEMENTACAO_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura), pNomeClasse
+        );
+
     }
 
 }

@@ -4,17 +4,13 @@
  */
 package testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabNomeClassePadraoAtributoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabPacoteCRCProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexao;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfValidacao;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.calculos.ValorLogicoCalculoGenerico;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.FabTipoEntidadeGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaCampoEntidade;
 import testesFW.geradorDeCodigo.util.model.geradorCodigo.GeradorClassePacoteImplEntidade;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
@@ -29,8 +25,6 @@ import testesFW.geradorDeCodigo.util.UtilSBDevelGeradorCodigoModel;
  * @author desenvolvedor
  */
 public class GeradorValorLogicoEntidadeImplementacao extends GeradorClassePacoteImplEntidade {
-
-    private boolean ummoduloERP;
 
     public static String gerarSubPacote(ItfEstruturaCampoEntidade pCampo) {
         return pCampo.getEstruturaPai().getNome();

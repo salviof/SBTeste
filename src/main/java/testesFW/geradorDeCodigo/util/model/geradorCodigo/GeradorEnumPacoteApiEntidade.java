@@ -5,6 +5,7 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabPacoteCRCProjeto;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.GeradorEnumGenerico;
 
@@ -16,7 +17,7 @@ public class GeradorEnumPacoteApiEntidade extends GeradorEnumGenerico {
 
     public GeradorEnumPacoteApiEntidade(ItfEstruturaDeEntidade pEstruturaEntidade, String pNomeClasse, boolean pModoModuloERP) {
 
-        super(pModoModuloERP ? FabPacoteCRCProjeto.MODULO_ERP_API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstruturaEntidade)
+        super(FabTipoCodigoDeEntidade.getTipoProjeto(pEstruturaEntidade).isTipoCodigoERP(pEstruturaEntidade) ? FabPacoteCRCProjeto.MODULO_ERP_API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstruturaEntidade)
                 : FabPacoteCRCProjeto.API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstruturaEntidade),
                 pNomeClasse);
 

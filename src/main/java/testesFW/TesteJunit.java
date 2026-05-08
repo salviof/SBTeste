@@ -140,17 +140,35 @@ public abstract class TesteJunit extends org.junit.Assert implements ItfTestesSB
     }
 
     public void criarAnotacaoValorLogico(ItfEstruturaDeEntidade estEstrutura) {
-        boolean contextoERP = CarameloCode.isProjetoModuloERP();
-        if (estEstrutura.isUmaEntidadeModuloERP()) {
-            if (contextoERP) {
-                UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(estEstrutura, contextoERP);
-            }
-        } else {
-            UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(estEstrutura, CarameloCode.isProjetoModuloERP());
+        FabTipoCodigoDeEntidade tipProjeto = FabTipoCodigoDeEntidade.getTipoProjeto(estEstrutura);
+
+        switch (tipProjeto) {
+            case EXTENCAO_MODULO_ERP:
+            case PROJETO_AUTONOMO:
+                UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(estEstrutura, false);
+                break;
+            case MODULO_ERP:
+                UtilSBDevelGeradorCodigoModel.gerarCodigoCampoValorLogicaApi(estEstrutura, true);
+                break;
+            default:
+                throw new AssertionError();
         }
 
         for (ItfEstruturaCampoEntidade pCampo : estEstrutura.getCamposComValorLogico()) {
-            UtilSBDevelGeradorCodigoModel.homologarClassesDeValorLogico(pCampo, contextoERP);
+
+            switch (tipProjeto) {
+
+                case EXTENCAO_MODULO_ERP:
+                case PROJETO_AUTONOMO:
+                    UtilSBDevelGeradorCodigoModel.homologarClassesDeValorLogico(pCampo, false);
+                    break;
+                case MODULO_ERP:
+                    UtilSBDevelGeradorCodigoModel.homologarClassesDeValorLogico(pCampo, true);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
         }
     }
 

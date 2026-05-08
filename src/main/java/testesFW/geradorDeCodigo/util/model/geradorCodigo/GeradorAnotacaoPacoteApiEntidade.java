@@ -5,6 +5,7 @@
 package testesFW.geradorDeCodigo.util.model.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabPacoteCRCProjeto;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.estrutura.ItfEstruturaDeEntidade;
 import testesFW.geradorDeCodigo.GeradorAnotacaoGenerico;
 
@@ -15,7 +16,7 @@ import testesFW.geradorDeCodigo.GeradorAnotacaoGenerico;
 public class GeradorAnotacaoPacoteApiEntidade extends GeradorAnotacaoGenerico {
 
     public GeradorAnotacaoPacoteApiEntidade(ItfEstruturaDeEntidade pEstrutura, String pNomeClasse) {
-        super(pEstrutura.isUmaEntidadeModuloERP() ? FabPacoteCRCProjeto.MODULO_ERP_API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura)
+        super(FabTipoCodigoDeEntidade.getTipoProjeto(pEstrutura).isTipoCodigoERP(pEstrutura) ? FabPacoteCRCProjeto.MODULO_ERP_API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura)
                 : FabPacoteCRCProjeto.API_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pEstrutura), pNomeClasse);
 
     }
