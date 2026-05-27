@@ -8,10 +8,13 @@ package testesFW.devOps;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCShellBasico;
 import cucumber.api.CucumberOptions;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -28,23 +31,44 @@ public class DevOpsCucumberPersistenciaMysql {
 
     public static boolean commpilarResultadoRequisito(Class pClasseCucumber) {
         String caminhoExecucao = SBCore.getCaminhoGrupoProjetoSource();
-
         String slugRequisito = getFeature(pClasseCucumber);
+
         if (!slugRequisito.startsWith("@")) {
             throw new UnsupportedOperationException("O nome do requisito deve ser compatível com a slug de Feature do cucumber, iniciando com arroba, sem conter espaços");
         }
 
-        InputStream is = DevOpsCucumberPersistenciaMysql.class.getClassLoader().getResourceAsStream("cucumber/devops/compilaBancoCucumber.sh");
+        InputStream is = DevOpsCucumberPersistenciaMysql.class.getClassLoader()
+                .getResourceAsStream("cucumber/devops/compilaBancoCucumber.sh");
+
+        String caminhoArquivo = caminhoExecucao + "/compilaBancoCucumber.sh";
+        File scriptFile = new File(caminhoArquivo);
+
         try {
-            String caminhoArquivo = caminhoExecucao + "/compilaBancoCucumber.sh";
-            IOUtils.copy(is, new FileOutputStream(caminhoArquivo));
-            String resposta = UtilCRCShellBasico.executeCommand(caminhoArquivo + " " + slugRequisito);
+            // === MELHORIA FORTE PARA EVITAR "ÁREA DE TEXTO OCUPADA" ===
+            if (scriptFile.exists()) {
+                scriptFile.delete();                    // remove o antigo
+            }
+
+            try (FileOutputStream fos = new FileOutputStream(scriptFile)) {
+                IOUtils.copy(is, fos);
+                fos.flush();
+            }
+
+            scriptFile.setExecutable(true, false);
+
+            // Força o Linux a liberar o arquivo
+            Runtime.getRuntime().exec("sync").waitFor();
+            Thread.sleep(350);   // ← aumentado (importante)
+
+            // Chama exatamente como você fazia antes
+            String resposta = UtilCRCShellBasico.executeCommand(true, true, caminhoArquivo + " " + slugRequisito);
             System.out.println(resposta);
-        } catch (FileNotFoundException ex) {
-            return false;
-        } catch (IOException ex) {
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
+
         return true;
     }
 
