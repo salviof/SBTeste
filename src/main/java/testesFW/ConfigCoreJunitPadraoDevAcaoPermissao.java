@@ -26,6 +26,7 @@ public class ConfigCoreJunitPadraoDevAcaoPermissao extends ConfigCoreJunitPadrao
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
         pConfig.setCentralComunicacao(CentralComunicacaoDesktop.class);
         super.defineFabricasDeACao(pConfig);
+
         setIgnorarConfiguracaoAcoesDoSistema(false);
         setIgnorarConfiguracaoPermissoes(false);
     }
