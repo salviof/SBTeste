@@ -4,7 +4,6 @@
  */
 package testesFW.geradorDeCodigo.util;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabNomeClassePadraoAtributoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -24,7 +23,6 @@ import testesFW.geradorDeCodigo.util.model.geradorCodigo.valorLogico.GeradorValo
 import java.io.File;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 
 /**
  *
@@ -77,7 +75,7 @@ public class UtilSBDevelGeradorCodigoModel {
         GeradorValorLogicoEntidadeImplementacao classeValorLogica = new GeradorValorLogicoEntidadeImplementacao(pCampo);
         File arquivoLogicaValidacao = new File(classeValorLogica.getCaminhoLocalSalvarCodigo());
         if (!arquivoLogicaValidacao.exists()) {
-            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
+            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getCanalPadrao().getRegistro(),
                     SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
                             "Um O arquivo de logica    para o campo " + pCampo.getSlugIdentificador() + " \n não foi encontrado no pacote modelRegraDeNegocio, \n deseja criar esse arquivo?"),
                     0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
@@ -95,7 +93,7 @@ public class UtilSBDevelGeradorCodigoModel {
         File arquivoLogicaValidacao = new File(validador.getCaminhoLocalSalvarCodigo());
 
         if (!arquivoLogicaValidacao.exists()) {
-            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
+            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(SBCore.getServicoComunicacao().getCanalPadrao().getRegistro(),
                     SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
                             "Um O arquivo de validação para o campo " + pCampo.getSlugIdentificador() + " \n não foi encontrado no pacote modelRegraDeNegocio, \n deseja criar esse arquivo?"),
                     0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {

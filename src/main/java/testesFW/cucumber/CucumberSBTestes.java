@@ -154,7 +154,7 @@ public class CucumberSBTestes extends Cucumber {
             UtilSBCucumber.gerarVariaveisEstaticasDasEtapas(todasEtapas, tagFuncionalidadeSemArroba);
             etapasNaoEncontradas.stream().forEach(etapa -> {
                 if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(
-                        SBCore.getServicoComunicacao().getFabricaCanalPadrao().getRegistro(),
+                        SBCore.getServicoComunicacao().getCanalPadrao().getRegistro(),
                         SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
                                 "A imlementação da etapa:" + etapa.getDescritivo() + " \n não foi encontrada, isso pode acontecer por uma mudança de nome, ou criação de nova etapa, você deve criar uma nova classe apenas se tiver adicionado uma nova etapa, deseja criar uma nova classe para implementar a etapa?"),
                         0, FabTipoRespostaComunicacao.SIM) == FabTipoRespostaComunicacao.SIM) {
