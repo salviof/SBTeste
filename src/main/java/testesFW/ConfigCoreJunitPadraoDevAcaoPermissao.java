@@ -6,7 +6,8 @@
 package testesFW;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicacaoDesktop;
+
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicacaoDesktopTransient;
 
 /**
  *
@@ -19,12 +20,12 @@ public class ConfigCoreJunitPadraoDevAcaoPermissao extends ConfigCoreJunitPadrao
     @Override
     public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {
         super.defineClassesBasicas(pConfiguracao); //chamada super do metodo (implementação classe pai)
-        pConfiguracao.setCentralComunicacao(CentralComunicacaoDesktop.class);
+        pConfiguracao.setCentralComunicacao(CentralComunicacaoDesktopTransient.class);
     }
 
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
-        pConfig.setCentralComunicacao(CentralComunicacaoDesktop.class);
+        pConfig.setCentralComunicacao(CentralComunicacaoDesktopTransient.class);
         super.defineFabricasDeACao(pConfig);
 
         setIgnorarConfiguracaoAcoesDoSistema(false);

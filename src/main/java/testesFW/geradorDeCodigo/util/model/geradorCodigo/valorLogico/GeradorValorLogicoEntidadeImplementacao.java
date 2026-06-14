@@ -17,7 +17,7 @@ import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.reflections.ReflectionUtils;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade;
 import static com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoCodigoDeEntidade.EXTENCAO_MODULO_ERP;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.calculos.ItfCalculoValorLogicoAtributoObjeto;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.calculos.ComoValorLogicoAtributoObjeto;
 import testesFW.geradorDeCodigo.util.UtilSBDevelGeradorCodigoModel;
 
 /**
@@ -40,7 +40,7 @@ public class GeradorValorLogicoEntidadeImplementacao extends GeradorClassePacote
                 case EXTENCAO_MODULO_ERP:
                     String nomeCanonico = FabPacoteCRCProjeto.MODULO_ERP_IMPLEMENTACAO_ESTRUTURA_ENTIDADE.getPacoteCanonicoDeEntidade(pCampo.getEstruturaPai());
                     nomeCanonico = nomeCanonico + "." + FabNomeClassePadraoAtributoEntidade.CLASSE_CAMPO_ENTIDADE_VALOR_LOGICO_IMPLMENTACAO_PADRAO_ERP.getNomeClassseAtributoEntidade(pCampo);
-                    Class classeERP = (Class<? extends ItfCalculoValorLogicoAtributoObjeto>) ReflectionUtils.forName(nomeCanonico);
+                    Class classeERP = (Class<? extends ComoValorLogicoAtributoObjeto>) ReflectionUtils.forName(nomeCanonico);
                     getCodigoJava().extendSuperType(classeERP);
                     break;
                 case PROJETO_AUTONOMO:
