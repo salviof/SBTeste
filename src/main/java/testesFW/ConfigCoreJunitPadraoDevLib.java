@@ -8,6 +8,9 @@ package testesFW;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
 
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicacaoDesktopTransient;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransientUsrToUsr;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 
 /**
  *
@@ -29,6 +32,7 @@ public class ConfigCoreJunitPadraoDevLib extends ConfigCoreJunitPadraoDevAcoes {
         super.defineFabricasDeACao(pConfig);
         setIgnorarConfiguracaoAcoesDoSistema(true);
         setIgnorarConfiguracaoPermissoes(true);
+
     }
 
 }

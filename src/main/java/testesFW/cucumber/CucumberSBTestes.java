@@ -5,6 +5,7 @@
  */
 package testesFW.cucumber;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCOrdenacaoAlfabeto;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexao;
@@ -13,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivoTex
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
 import cucumber.api.junit.Cucumber;
 import cucumber.runtime.Runtime;
 import cucumber.runtime.RuntimeGlue;
@@ -153,12 +155,16 @@ public class CucumberSBTestes extends Cucumber {
 
             UtilSBCucumber.gerarVariaveisEstaticasDasEtapas(todasEtapas, tagFuncionalidadeSemArroba);
             etapasNaoEncontradas.stream().forEach(etapa -> {
-                if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(
-                        SBCore.getServicoComunicacao().getCanalPadrao().getRegistro(),
-                        SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
-                                "A imlementação da etapa:" + etapa.getDescritivo() + " \n não foi encontrada, isso pode acontecer por uma mudança de nome, ou criação de nova etapa, você deve criar uma nova classe apenas se tiver adicionado uma nova etapa, deseja criar uma nova classe para implementar a etapa?"),
-                        0, FabTipoRespostaComunicacao.SIM) == FabTipoRespostaComunicacao.SIM) {
-                    UtilSBCucumber.gerarClasseImplementacaoEtapa(etapa, tagFuncionalidadeSemArroba);
+                try {
+                    if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(
+                            SBCore.getServicoComunicacao().getCanalPadrao().getRegistro(),
+                            SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
+                                    "A imlementação da etapa:" + etapa.getDescritivo() + " \n não foi encontrada, isso pode acontecer por uma mudança de nome, ou criação de nova etapa, você deve criar uma nova classe apenas se tiver adicionado uma nova etapa, deseja criar uma nova classe para implementar a etapa?"),
+                            0, FabTipoRespostaComunicacao.SIM) == FabTipoRespostaComunicacao.SIM) {
+                        UtilSBCucumber.gerarClasseImplementacaoEtapa(etapa, tagFuncionalidadeSemArroba);
+                    }
+                } catch (ErroDetectandoTelaBloqueio ex) {
+                    CarameloCode.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha detectando tela do usuário para bloqueio de processo", ex);
                 }
 
             });
